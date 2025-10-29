@@ -1,0 +1,4 @@
+<h1>Restaurantes</h1>
+@for (usuarioIndividual of userService.users; track $index){
+    <restaurant-list-item [user]="üsuarioIndividual"></restaurant-list-item>
+}

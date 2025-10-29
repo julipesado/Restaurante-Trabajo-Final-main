@@ -1,0 +1,8 @@
+<li [class.favourite]= "user().isFavourite===true">
+    <a [routerLink]="+user().id"><span>{{user().name}}</span></a>
+    <span>{{user().number}}</span>
+    <span>
+        @if(user().isFavourite===true){
+            <p>⭐</p>
+        }
+    </span>
