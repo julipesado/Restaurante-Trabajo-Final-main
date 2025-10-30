@@ -38,9 +38,9 @@
     </div>
 
     <button [disabled]="isLoading" class="boton-inicio">Iniciar sesión</button>
-    @if(isLoading){
+   <!-- @if(isLoading){
     <app-spinner></app-spinner>
-    }
+}-->
     @if (errorRegister) {
       <p class="error">Error indeterminado, intente nuevamente.</p>
     } 

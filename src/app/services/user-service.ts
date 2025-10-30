@@ -13,7 +13,7 @@ export class UserService {
     users: User[] = []
 
     async register(registerData:NewUser){
-       return await fetch("", {
+       return await fetch("https://restaurant-api.somee.com/api/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -23,7 +23,7 @@ export class UserService {
 
     }   
 async getUsers(){
-    const res = await fetch ("",
+    const res = await fetch ("https://restaurant-api.somee.com/api/users",
         {
             headers:{
                 Authorization: "Bearer " + this.authService.token,
@@ -35,7 +35,7 @@ async getUsers(){
     this.users = resJson;
 }
 async getUserById(id: number) {
-      const res = await fetch('' + id,
+      const res = await fetch('https://restaurant-api.somee.com/api/users/' + id,
       {
         headers: {
           Authorization: "Bearer " + this.authService.token,
@@ -48,7 +48,7 @@ async getUserById(id: number) {
    }
 
   async createUser(nuevoUsuario: NewUser) {
-    const res = await fetch("",
+    const res = await fetch("https://restaurant-api.somee.com/api/users",
       {
         method: "POST",
         body: JSON.stringify(nuevoUsuario),
@@ -64,7 +64,7 @@ async getUserById(id: number) {
     return resJson
   }
 async editUser(usuarioEditado: User) {
-    const res = await fetch("" + "/" + usuarioEditado.id, {
+    const res = await fetch("https://restaurant-api.somee.com/api/users/" + "/" + usuarioEditado.id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -81,19 +81,20 @@ async editUser(usuarioEditado: User) {
   }
 
   async deleteUser(id: number | string) {
-    const res = await fetch("" + id, {
+    const res = await fetch("https://restaurant-api.somee.com/api/users/" + id, {
       method: "DELETE",
       headers: {
-        Authorization: "Bearer " + this.authService.token
+       " Authorization": "Bearer " + this.authService.token
       }
     });
     if(!res.ok) return; 
-    if (res.ok) {
+    //if (res.ok) {
       this.users = this.users.filter(user => user.id !== id) 
     return true; 
-  }
- async setFavourite(id: string | number) {
-    const res = await fetch("" + "/" + id + "/favorite",
+  //}
+}
+    async setFavourite(id: string | number){
+    const res = await fetch("https://restaurant-api.somee.com/api/users/" + "/" + id + "/favourite",
       {
         method: "POST",
         headers: {
@@ -105,11 +106,10 @@ async editUser(usuarioEditado: User) {
     }
     this.users = this.users.map(user => { 
       if(user.id === id){
-        return {...user, isFavorite: !user.isFavourite};
+        return {...user, isFavourite: !user.isFavourite};
       };
       return user; 
     });
     return true;
   }
-}
 }

@@ -11,7 +11,7 @@ export class AuthService {
   token: null | string= localStorage.getItem("token");
 
   async login(loginData: LoginData){
-    const res = await fetch(,
+    const res = await fetch("https://restaurant-api.somee.com/api/Authentication/login",
       {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
