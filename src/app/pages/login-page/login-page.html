@@ -2,10 +2,10 @@
   <h1>Iniciar sesión </h1>
   <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
   <div >
-    <label for="email">Correo electrónico</label>
-    <input class="container-input" id="email" name="email" type="email" id="email" ngModel #email="ngModel" required="true" autocomplete="email">
-    @if (email.invalid && !email.pristine) {
-      <p class="error">Debe colocar un correo electrónico.</p>
+    <label for="restaurantName">Nombre del restaurante</label>
+    <input class="container-input" id="restaurantName" name="restaurantName" type="restaurantName" id="restaurantName" ngModel #restaurantName="ngModel" required="true" autocomplete="restaurantName">
+    @if (restaurantName.invalid && !restaurantName.pristine) {
+      <p class="error">Debe colocar el nombre de su restaurante/p>
     } 
   </div>
   <div>
@@ -18,11 +18,11 @@
   <!--@if(isLoading){
   <app-spinner> </app-spinner>
 }-->
-  <button class="boton-inicio">Iniciar sesión</button>
+ <button>Iniciar sesión</button>
   @if (errorLogin) {
     <p class="error">Datos de sesión incorrectos, intente nuevamente.</p>
   } 
   <p class="register-text">Queres ser parte? <a class="register-link" routerLink="/register">Registrate</a></p>
   </form>
-<a routerLink="/">Explorar restaurantes</a>
+  <a routerLink="/">Explorar restaurantes</a>
 </div>

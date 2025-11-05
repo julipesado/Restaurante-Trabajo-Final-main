@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { UserService } from '../services/user-service';
+import { AuthService } from '../services/auth-service';
+import { User } from '../interfaces/interfaces/user';
 
 @Component({
   selector: 'app-logged-layout',
@@ -6,6 +9,21 @@ import { Component } from '@angular/core';
   templateUrl: './logged-layout.html',
   styleUrl: './logged-layout.scss',
 })
-export class LoggedLayout {
+export class LoggedLayout implements OnInit {
 
+  authService = inject(AuthService);
+  userService = inject(UserService);
+
+  me: User | undefined;
+  error = false;
+
+  ngOnInit(): void {
+    const restaurantName = this.authService.getRestaurantName();
+    if (restaurantName === null)
+      this.error = true;
+    else
+      this.userService.getUserByRestaurantName(restaurantName).then(user => {
+        this.me = user;
+      })
+  }
 }

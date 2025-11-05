@@ -4,6 +4,7 @@ import { ExplorePage } from './explore-page/explore-page';
 import { RegisterPage } from './register-page/register-page';
 import { LoggedLayout } from './logged-layout/logged-layout';
 import { onlyLoggedUserGuard } from './guards/only-logged-user-guard';
+import { RestaurantPage } from './restaurant-page/restaurant-page';
 
 export const routes: Routes = [
     {
@@ -19,8 +20,12 @@ export const routes: Routes = [
         component: RegisterPage
     },
     {
-        path: "logged-layout",
+        path: "admin",
         component: LoggedLayout,
         canActivate: [onlyLoggedUserGuard]
+    },
+    {
+    path: "restaurantpage/:id",
+    component: RestaurantPage
     }
 ];

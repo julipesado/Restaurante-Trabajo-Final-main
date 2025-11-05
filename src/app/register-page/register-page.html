@@ -1,25 +1,12 @@
 <div id="container" class="card">
   <h1>Registrarse</h1>
   <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+  
     <div>
-      <label for="email">Correo electrónico</label>
-      <input id="email" name="email" type="email" id="email" ngModel #email="ngModel" required="true" autocomplete="email">
-      @if (email.invalid && !email.pristine) {
-        <p class="error">Debe colocar un correo electrónico.</p>
-      }
-    </div>
-    <div>
-      <label for="firstname">Nombre</label>
-      <input id="firstname" name="firstname" type="firstname" ngModel #firstname="ngModel" minlength="4" autocomplete="firstname">
-      @if (firstname.invalid && !firstname.pristine) {
+      <label for="name">Nombre del Restaurante</label>
+      <input id="restaurantName" name="restaurantName" type="restaurantName" ngModel #restaurantName="ngModel" minlength="4" autocomplete="restaurantName">
+      @if (restaurantName.invalid && !restaurantName.pristine) {
         <p class="error">Debe colocar un nombre de al menos 4 caracteres.</p>
-      }
-    </div>
-    <div>
-      <label for="lastname">Apellido</label>
-      <input id="lastname" name="lastname" type="lastname" ngModel #lastname="ngModel" minlength="4" autocomplete="lastname">
-      @if (lastname.invalid && !lastname.pristine) {
-        <p class="error">Debe colocar un apellido de al menos 4 caracteres.</p>
       }
     </div>
     <div>
@@ -36,8 +23,37 @@
         <p class="error">Debe colocar una contraseña de al menos 4 caracteres.</p>
       }
     </div>
+    <div>
+      <label for="firstName">Nombre </label>
+      <input id="firstName" name="firstName" type="firstName" ngModel #firstName="ngModel" minlength="4" autocomplete="firstName">
+      @if (firstName.invalid && !firstName.pristine) {
+        <p class="error">Debe colocar un nombre de al menos 4 caracteres.</p>
+      }
+    </div>
+    <div>
+      <label for="lastName">Apellido </label>
+      <input id="lastName" name="lastName" type="lastName" ngModel #lastName="ngModel" minlength="4" autocomplete="lastName">
+      @if (lastName.invalid && !lastName.pristine) {
+        <p class="error">Debe colocar un nombre de al menos 4 caracteres.</p>
+      }
+    </div>
+    <div>
+      <label for="address"> Address </label>
+      <input id="address" name="address" type="address" ngModel #address="ngModel" minlength="4" autocomplete="address">
+      @if (address.invalid && !address.pristine) {
+        <p class="error">Debe colocar un nombre de al menos 4 caracteres.</p>
+      }
+    </div>
+        <div>
+      <label for="phoneNumber"> Número de teléfono </label>
+      <input id="phoneNumber" name="phoneNumber" type="phoneNumber" ngModel #phoneNumber="ngModel" minlength="4" autocomplete="phoneNumber">
+      @if (phoneNumber.invalid && !phoneNumber.pristine) {
+        <p class="error">Debe colocar un nombre de al menos 4 caracteres.</p>
+      }
+    </div>
+    
 
-    <button [disabled]="isLoading" class="boton-inicio" routerLink="/logged-layout">Iniciar sesión</button>
+    <button [disabled]="isLoading" class="boton-inicio" type="submit">Registrarme</button>
    <!-- @if(isLoading){
     <app-spinner></app-spinner>
 }-->

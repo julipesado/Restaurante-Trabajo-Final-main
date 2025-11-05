@@ -19,7 +19,7 @@ router = inject(Router)
   async register(form:any){
     console.log(form.value);
     this.errorRegister = false;
-    if(!form.value.email || !form.value.password || !form.value.password2 || form.value.password !== form.value.password2){
+    if(!form.value.restaurantName || !form.value.password || !form.value.password2 || form.value.password !== form.value.password2){
       this.errorRegister = true;
       return
     }
