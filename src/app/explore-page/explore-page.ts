@@ -16,8 +16,7 @@ export class ExplorePage implements OnInit {
   ngOnInit(): void {
     this.userService.getUsers();
   }
+
   authService = inject (AuthService);
   userService = inject(UserService);
-  
-
 }

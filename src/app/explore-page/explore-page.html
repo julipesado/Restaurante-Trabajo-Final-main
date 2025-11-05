@@ -2,3 +2,4 @@
 @for (usuarioIndividual of userService.users; track $index){
     <app-restaurant-list-item [user]="usuarioIndividual"></app-restaurant-list-item>
 }
+<a [routerLink]="['/login']">login</a>

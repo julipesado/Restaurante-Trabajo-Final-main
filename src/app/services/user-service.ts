@@ -13,7 +13,7 @@ export class UserService {
     users: User[] = []
 
     async register(registerData:NewUser){
-       return await fetch("https://restaurant-api.somee.com/api/users", {
+       return await fetch("https://w370351.ferozo.com/api/users", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -23,7 +23,7 @@ export class UserService {
 
     }   
 async getUsers(){
-    const res = await fetch ("https://restaurant-api.somee.com/api/users",
+    const res = await fetch ("https://w370351.ferozo.com/api/users",
         {
             headers:{
                 Authorization: "Bearer " + this.authService.token,
@@ -35,7 +35,7 @@ async getUsers(){
     this.users = resJson;
 }
 async getUserById(id: number) {
-      const res = await fetch('https://restaurant-api.somee.com/api/users/' + id,
+      const res = await fetch('https://w370351.ferozo.com/api/users/' + id,
       {
         headers: {
           Authorization: "Bearer " + this.authService.token,
@@ -48,7 +48,7 @@ async getUserById(id: number) {
    }
 
   async createUser(nuevoUsuario: NewUser) {
-    const res = await fetch("https://restaurant-api.somee.com/api/users",
+    const res = await fetch("https://w370351.ferozo.com/api/users",
       {
         method: "POST",
         body: JSON.stringify(nuevoUsuario),
@@ -64,7 +64,7 @@ async getUserById(id: number) {
     return resJson
   }
 async editUser(usuarioEditado: User) {
-    const res = await fetch("https://restaurant-api.somee.com/api/users/" + "/" + usuarioEditado.id, {
+    const res = await fetch("https://w370351.ferozo.com/api/users/" + "/" + usuarioEditado.id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +81,7 @@ async editUser(usuarioEditado: User) {
   }
 
   async deleteUser(id: number | string) {
-    const res = await fetch("https://restaurant-api.somee.com/api/users/" + id, {
+    const res = await fetch("https://w370351.ferozo.com/api/users/" + id, {
       method: "DELETE",
       headers: {
        " Authorization": "Bearer " + this.authService.token
@@ -94,7 +94,7 @@ async editUser(usuarioEditado: User) {
   //}
 }
     async setFavourite(id: string | number){
-    const res = await fetch("https://restaurant-api.somee.com/api/users/" + "/" + id + "/favourite",
+    const res = await fetch("https://w370351.ferozo.com/api/users/" + "/" + id + "/favourite",
       {
         method: "POST",
         headers: {

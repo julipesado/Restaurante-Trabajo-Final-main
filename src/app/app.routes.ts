@@ -13,12 +13,6 @@ export const routes: Routes = [
     {
         path: "",
         component: ExplorePage,
-        canActivateChild: [onlyPublicUserGuard],
-        children: [
-            {
-                path: "",
-                component: RestaurantPage
-            }
-        ]
+
     }
 ];
