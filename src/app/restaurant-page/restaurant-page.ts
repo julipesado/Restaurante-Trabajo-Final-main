@@ -19,6 +19,7 @@ async ngOnInit (){
 async toggleFavorite(){
   if (this.user){
    this.user.isFavourite = !this.user.isFavourite;
+   //localStorage.setItem hacer un servicio para poder llamar this.toggleFavouriteUser como servicio 
   }
 }
 }
