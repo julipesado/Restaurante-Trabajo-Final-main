@@ -2,12 +2,9 @@ import { Routes } from '@angular/router';
 import { LoginPage } from './pages/login-page/login-page';
 import { onlyPublicUserGuard } from './guards/only-public-user-guard-guard';
 import { ExplorePage } from './explore-page/explore-page';
-<<<<<<< HEAD
-=======
 import { RegisterPage } from './register-page/register-page';
 import { LoggedLayout } from './logged-layout/logged-layout';
 import { onlyLoggedUserGuard } from './guards/only-logged-user-guard';
->>>>>>> c404d5b125006e24fccd1bc659c861439898858b
 import { RestaurantPage } from './restaurant-page/restaurant-page';
 
 export const routes: Routes = [
@@ -19,7 +16,6 @@ export const routes: Routes = [
     {
         path: "",
         component: ExplorePage,
-<<<<<<< HEAD
         canActivateChild: [onlyPublicUserGuard],
         children: [
             {
@@ -27,7 +23,6 @@ export const routes: Routes = [
                 component: RestaurantPage
             }
         ]
-=======
     },
     {
         path: "register",
@@ -41,6 +36,5 @@ export const routes: Routes = [
     {
     path: "restaurantpage/:id",
     component: RestaurantPage
->>>>>>> c404d5b125006e24fccd1bc659c861439898858b
     }
 ];
