@@ -4,38 +4,38 @@ import { User } from "../interfaces/interfaces/user";
 import { AuthService } from "./auth-service";
 
 @Injectable({
-    providedIn: "root"
+  providedIn: "root"
 })
 export class UserService {
-    authService = inject(AuthService)
-    aleatorio = Math.random()
+  authService = inject(AuthService)
+  aleatorio = Math.random()
 
-    users: User[] = []
+  users: User[] = [];
 
-    async register(registerData:NewUser){
-       return await fetch("https://w370351.ferozo.com/api/users", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(registerData)
-        });
+  async register(registerData: NewUser) {
+    return await fetch("https://w370351.ferozo.com/api/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(registerData)
+    });
 
-    }   
-async getUsers(){
-    const res = await fetch ("https://w370351.ferozo.com/api/users",
-        {
-            headers:{
-                Authorization: "Bearer " + this.authService.token,
-            }
-
+  }
+  async getUsers() {
+    const res = await fetch("https://w370351.ferozo.com/api/users",
+      {
+        headers: {
+          Authorization: "Bearer " + this.authService.token,
         }
+
+      }
     )
-    const resJson: User[] =  await res.json()
+    const resJson: User[] = await res.json()
     this.users = resJson;
-}
-async getUserById(id: number) {
-      const res = await fetch('https://w370351.ferozo.com/api/users/' + id,
+  }
+  async getUserById(id: number) {
+    const res = await fetch('https://w370351.ferozo.com/api/users/' + id,
       {
         headers: {
           Authorization: "Bearer " + this.authService.token,
@@ -45,7 +45,14 @@ async getUserById(id: number) {
       return
     }
     return await res.json();
-   }
+  }
+
+  async getUserByRestaurantName(restaurantName: string) {
+    if (this.users.length == 0)
+      await this.getUsers();
+
+    return this.users.find(u => u.restaurantName === restaurantName);
+  }
 
   async createUser(nuevoUsuario: NewUser) {
     const res = await fetch("https://w370351.ferozo.com/api/users",
@@ -63,7 +70,7 @@ async getUserById(id: number) {
     this.users.push(resJson);
     return resJson
   }
-async editUser(usuarioEditado: User) {
+  async editUser(usuarioEditado: User) {
     const res = await fetch("https://w370351.ferozo.com/api/users/" + "/" + usuarioEditado.id, {
       method: "PUT",
       headers: {
@@ -72,7 +79,7 @@ async editUser(usuarioEditado: User) {
       },
       body: JSON.stringify(usuarioEditado),
     });
-    if (!res.ok) return; 
+    if (!res.ok) return;
     this.users = this.users.map(user => {
       if (user.id === usuarioEditado.id) return usuarioEditado;
       return user
@@ -84,32 +91,14 @@ async editUser(usuarioEditado: User) {
     const res = await fetch("https://w370351.ferozo.com/api/users/" + id, {
       method: "DELETE",
       headers: {
-       " Authorization": "Bearer " + this.authService.token
+        " Authorization": "Bearer " + this.authService.token
       }
     });
-    if(!res.ok) return; 
+    if (!res.ok) return;
     //if (res.ok) {
-      this.users = this.users.filter(user => user.id !== id) 
-    return true; 
-  //}
-}
-    async setFavourite(id: string | number){
-    const res = await fetch("https://w370351.ferozo.com/api/users/" + "/" + id + "/favourite",
-      {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + this.authService.token,
-        },
-      });
-    if (!res.ok) {
-      return
-    }
-    this.users = this.users.map(user => { 
-      if(user.id === id){
-        return {...user, isFavourite: !user.isFavourite};
-      };
-      return user; 
-    });
-    return true;
-  }
+    this.users = this.users.filter(user => user.id !== id)
+    return true;
+    //}
+  }
+  
 }

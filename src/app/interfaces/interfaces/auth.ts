@@ -1,4 +1,4 @@
 export interface LoginData {
-    username: string,
+    restaurantName: string,
     password: string
 }

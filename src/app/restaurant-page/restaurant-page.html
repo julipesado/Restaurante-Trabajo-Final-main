@@ -1,0 +1,33 @@
+
+<div id="container-details">
+  <a  class="return-link" routerLink= "/"> ← </a>
+  <!--<img
+    [src]= 'user?.image' 
+    alt="Foto de contacto"
+    class="contact-pic" /> -->
+  @if (user) {
+    <span class="nombreR">
+        {{user.restaurantName}}
+    </span>
+    <div [class.favourite]="user.isFavourite === true">
+      <div class="user-info">
+        @if (user.isFavourite === true) {
+          <span class="favorite">⭐</span>
+        }
+        <span class="details number">
+          {{user.phoneNumber }}
+        </span>
+        <span class="details address">
+          {{user.address}}
+        </span>
+      </div>
+      <div class="buttons">
+        @if (user.isFavourite === true) {
+          <button (click)="toggleFavorite()">Desmarcar como favorito</button>
+        } @else {
+          <button (click)="toggleFavorite()">Marcar como favorito</button>
+        }
+      </div>
+    </div>
+  }
+</div>

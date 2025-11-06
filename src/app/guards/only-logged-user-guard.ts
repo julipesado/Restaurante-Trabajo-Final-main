@@ -5,12 +5,11 @@ import { AuthService } from '../services/auth-service';
 export const onlyLoggedUserGuard: CanActivateFn = (route, state) => {
   const auth = inject(AuthService);
   const router = inject(Router)
-  if (auth.token) {
-    const newPath = router.parseUrl("/");
-    return new RedirectCommand(newPath, {
-      skipLocationChange: true,
-    });
-  }
+  
+  if (auth.token) return true;
 
-  return true;
+  const newPath = router.parseUrl("/");
+  return new RedirectCommand(newPath, {
+    skipLocationChange: true,
+  });
 };

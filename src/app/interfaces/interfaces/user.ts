@@ -1,9 +1,11 @@
 export interface User {
     id:number,
-    name: string,
-    email: string,
+    restaurantName: string,
     password: string,
-    number: string,
+    firstName: string,
+    lastName: string,
+    address: string,
+    phoneNumber: string,
     isFavourite?: boolean
 }
 export type NewUser = Omit<User, "id">;
