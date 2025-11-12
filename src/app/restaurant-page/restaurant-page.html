@@ -1,62 +1,57 @@
-
 <div id="container-details">
-  <a  class="return-link" routerLink= "/"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-</svg> </a>
+  <a class="return-link" routerLink="/"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+      fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd"
+        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+    </svg> </a>
   <!--<img
     [src]= 'user?.image' 
     alt="Foto de contacto"
     class="contact-pic" /> -->
   @if (user) {
-    <span class="nombreR">
-        {{user.restaurantName}}
-    </span>
-    <div [class.favourite]="user.isFavourite === true">
-      <div class="user-info">
-        @if (user.isFavourite === true) {
-          <span class="favorite">⭐</span>
-        }
-        <span class="details number">
-          {{user.phoneNumber }}
-        </span>
-        <span class="details address">
-          {{user.address}}
-        </span>
-      </div>
-      <div class="buttons">
-        @if (user.isFavourite === true) {
-          <button (click)="toggleFavorite()">Desmarcar como favorito</button>
-        } @else {
-          <button (click)="toggleFavorite()">Marcar como favorito</button>
-        }
-      </div>
-      @if (products().length === 0) {
-      <p> Todavía no hay productos, explora otros restaurantes!</p>
-    } @else {
-      <ul class="menu-list">
-        @for (product of products(); track product.id) {
-          <li class="menu-item">
-            
-            @if (product.IsFeatured) {
-              <span class=" featured">⭐ Destacado</span>
-            }
-
-            <strong>{{ product.name }}</strong>
-            
-            @if (product.discount > 0) {
-              <span class=" discount">{{ product.discount }}% OFF</span>
-            }
-            @if (product.hasHappyHour) {
-              <span class=" happy-hour">🎉 Happy Hour</span>
-            }
-
-            <p>{{ product.description }}</p>
-            <p>Precio: $ {{ product.price }}</p>
-            <p>Categoría: {{ getCategoryName(product.categoryId) }}</p>
-            
-            </li>
-        }
-      </ul>
-    }
+  <span class="nombreR">
+    {{user.restaurantName}}
+  </span>
+  <div [class.favourite]="user.isFavourite === true">
+    <div class="user-info">
+      @if (user.isFavourite === true) {
+      <span class="favorite">⭐</span>
+      }
+      <span class="details number">
+        {{user.phoneNumber }}
+      </span>
+      <span class="details address">
+        {{user.address}}
+      </span>
     </div>
-  }
+    <div class="buttons">
+      @if (user.isFavourite === true) {
+      <button (click)="toggleFavorite()">Desmarcar como favorito</button>
+      } @else {
+      <button (click)="toggleFavorite()">Marcar como favorito</button>
+      }
+    </div>
+    @if (productsService.products.length === 0) {
+    <p> Todavía no hay productos, explora otros restaurantes!</p>
+    } @else {
+    <ul class="menu-list">
+      @for (product of productsService.products; track product.id) {
+      <li class="menu-item">
+        <strong>{{ product.name }}</strong>
+
+        @if (product.discount > 0) {
+        <span class=" discount">{{ product.discount }}% OFF</span>
+        }
+        @if (product.hasHappyHour) {
+        <span class=" happy-hour">Happy Hour</span>
+        }
+
+        <p>{{ product.description }}</p>
+        <p>Precio: $ {{ product.price }}</p>
+        <p>Categoría: {{getCategoryName(product.categoryId) }}</p>
+      </li>
+      }
+    </ul>
+    }
+  </div>
+}

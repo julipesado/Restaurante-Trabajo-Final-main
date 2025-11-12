@@ -1,5 +1,11 @@
 export interface Product {
-    discount: boolean,
-    happyhour: boolean,
-    
+    id: number
+    name: string,
+    price: number,
+    description: string,
+    categoryId: number, 
+    recommendedFor: number,
+    discount: number,
+    hasHappyHour: boolean,
 }
+export type NewProduct = Omit<Product, "id">;
