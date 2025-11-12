@@ -10,6 +10,6 @@ export const onlyLoggedUserGuard: CanActivateFn = (route, state) => {
 
   const newPath = router.parseUrl("/");
   return new RedirectCommand(newPath, {
-    skipLocationChange: true,
+    skipLocationChange: false,
   });
 };

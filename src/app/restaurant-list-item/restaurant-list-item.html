@@ -1,5 +1,5 @@
 <li [class.favourite]= "user().isFavourite===true">
-    <a [routerLink]="['/restaurantpage', user().id]"><span>{{user().restaurantName}}</span></a>
+    <a [routerLink]="['/restaurant', user().id]"><span>{{user().restaurantName}}</span></a>
     <span>{{user().phoneNumber}}</span>
     <span>
         @if(user().isFavourite===true){

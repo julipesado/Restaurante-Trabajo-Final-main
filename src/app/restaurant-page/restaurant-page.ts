@@ -2,10 +2,12 @@ import { Component, inject, input, OnInit } from '@angular/core';
 import { UserService } from '../services/user-service';
 import { User } from '../interfaces/interfaces/user';
 import { Categories } from '../categories/categories';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-restaurant-page',
   templateUrl: './restaurant-page.html',
+  imports: [RouterLink],
   styleUrls: ['./restaurant-page.scss']
 })
 export class RestaurantPage implements OnInit {

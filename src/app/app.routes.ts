@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginPage } from './pages/login-page/login-page';
-import { onlyPublicUserGuard } from './guards/only-public-user-guard-guard';
+import { onlyPublicUserGuard } from './guards/only-public-user-guard';
 import { ExplorePage } from './explore-page/explore-page';
 import { RegisterPage } from './register-page/register-page';
 import { LoggedLayout } from './logged-layout/logged-layout';
@@ -16,25 +16,21 @@ export const routes: Routes = [
     {
         path: "",
         component: ExplorePage,
-        canActivateChild: [onlyPublicUserGuard],
-        children: [
-            {
-                path: "",
-                component: RestaurantPage
-            }
-        ]
+        canActivate: [onlyPublicUserGuard]
+    },
+    {
+        path: "restaurant/:id",
+        component: RestaurantPage,
+        canActivate: [onlyPublicUserGuard]
     },
     {
         path: "register",
-        component: RegisterPage
+        component: RegisterPage,
+        canActivate: [onlyPublicUserGuard]
     },
     {
         path: "admin",
         component: LoggedLayout,
         canActivate: [onlyLoggedUserGuard]
     },
-    {
-    path: "restaurantpage/:id",
-    component: RestaurantPage
-    }
 ];
