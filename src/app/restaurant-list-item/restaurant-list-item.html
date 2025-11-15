@@ -1,9 +1,20 @@
-<li [class.favourite]= "user().isFavourite===true">
-    <a [routerLink]="['/restaurant', user().id]"><span>{{user().restaurantName}}</span></a>
-    <span>{{user().phoneNumber}}</span>
-    <span>
-        @if(user().isFavourite===true){
-            <p>⭐</p>
+<li 
+  class="restaurant-item"
+  [class.is-favourite]="user().isFavourite === true"
+>
+    <a 
+      [routerLink]="['/restaurant', user().id]" 
+      class="restaurant-link"
+    >
+      <span class="restaurant-name">{{ user().restaurantName }}</span>
+    </a>
+
+    <span class="restaurant-phone">{{ user().phoneNumber }}</span>
+
+    <span class="restaurant-favourite">
+        @if (user().isFavourite === true) {
+            <p class="favourite-icon">⭐</p>
         }
     </span>
 </li>
+

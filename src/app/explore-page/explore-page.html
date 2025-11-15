@@ -1,5 +1,12 @@
-<h1>Restaurantes</h1>
-@for (usuarioIndividual of userService.users; track $index){
-    <app-restaurant-list-item [user]="usuarioIndividual"></app-restaurant-list-item>
-}
-<a [routerLink]="['/login']">login</a>
+<h1 class="restaurants-title">Restaurantes</h1>
+
+<div class="restaurants-list">
+  @for (usuarioIndividual of userService.users; track $index) {
+      <app-restaurant-list-item 
+        class="restaurant-item-wrapper"
+        [user]="usuarioIndividual">
+      </app-restaurant-list-item>
+  }
+</div>
+
+<a [routerLink]="['/login']" class="login-link">Login</a>
