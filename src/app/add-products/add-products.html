@@ -1,0 +1,39 @@
+@if (idProducto()) {
+    <h2>Editar producto</h2>
+}
+    @else {
+        <h2>Agregar producto</h2>
+    }
+<div>
+    <form (ngSubmit)="handleFormSubmission(newProductForm.value)" #newProductForm="ngForm">
+        <div>
+            <label for="name">Nombre del producto*</label>
+            <input id="name" name="name" type="text" ngModel requiered ="true" minlength="2" #name="ngModel">
+            @if (name.dirty && name.invalid) {
+                <p class="error"> El nombre del producto es obligatorio</p>
+            }
+        </div>
+        <div>
+            <label for="price">Precio*</label>
+            <input id="price" name="price" type="text" ngModel requiered ="true" minlength="2" #name="ngModel">
+        </div>
+        <div>
+            <label for="description">Descripción</label>
+            <input type="text" id="descripcion" name="description">
+        </div>
+        <div>
+            <label for="discount">Descuento</label>
+            <input type="text" id="descuento" name="descuento">
+        </div>
+        <div>
+            <label for="hasHappyHour">Happy hour</label>
+            <input type="text" id="happyhour" name="happyhour">          
+        </div>
+        @if (idProducto()) {
+            <button [disabled]="newProductForm.invalid || isLoading"> Guardar cambios</button>
+        }
+            @else {
+                <button [disabled]="newProductForm.invalid || isLoading"> Crear</button>
+            }
+    </form>
+</div>

@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../services/user-service';
 import { AuthService } from '../services/auth-service';
 import { User } from '../interfaces/interfaces/user';
+import { AddProducts } from '../add-products/add-products';
 
 @Component({
   selector: 'app-logged-layout',
@@ -26,4 +27,5 @@ export class LoggedLayout implements OnInit {
         this.me = user;
       })
   }
+
 }

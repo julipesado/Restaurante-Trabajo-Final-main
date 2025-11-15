@@ -46,7 +46,7 @@ export class AddProducts implements OnInit {
       res = await this.productService.createProduct(newProduct);
     }
     this.isLoading = false;
-    this.router.navigate(["/"])
+    this.router.navigate(["/admin"])
     }
   }
 
