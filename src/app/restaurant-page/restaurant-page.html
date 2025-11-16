@@ -1,57 +1,86 @@
-<div id="container-details">
-  <a class="return-link" routerLink="/"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-      fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-      <path fill-rule="evenodd"
-        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
-    </svg> </a>
-  <!--<img
-    [src]= 'user?.image' 
-    alt="Foto de contacto"
-    class="contact-pic" /> -->
+<div class="container my-4">
+
+  
+  <a routerLink="/" class="text-decoration-none text-dark">
+    <div class="d-flex align-items-center mb-3">
+      <i class="bi bi-arrow-left me-2"></i>
+      <span>Volver</span>
+    </div>
+  </a>
+
   @if (user) {
-  <span class="nombreR">
-    {{user.restaurantName}}
-  </span>
-  <div [class.favourite]="user.isFavourite === true">
-    <div class="user-info">
-      @if (user.isFavourite === true) {
-      <span class="favorite">⭐</span>
+
+  
+  <div class="card shadow-sm p-4 mb-4">
+    
+    <h2 class="text-center fw-bold mb-3">
+      {{ user.restaurantName }}
+    </h2>
+
+    <div class="text-center mb-3">
+      @if (user.isFavourite) {
+        <span class="badge bg-warning text-dark">⭐ Favorito</span>
       }
-      <span class="details number">
-        {{user.phoneNumber }}
-      </span>
-      <span class="details address">
-        {{user.address}}
-      </span>
     </div>
-    <div class="buttons">
-      @if (user.isFavourite === true) {
-      <button (click)="toggleFavorite()">Desmarcar como favorito</button>
+
+    
+    <div class="mb-3">
+      <p class="mb-1"><i class="bi bi-telephone me-2"></i>{{ user.phoneNumber }}</p>
+      <p class="mb-1"><i class="bi bi-geo-alt me-2"></i>{{ user.address }}</p>
+    </div>
+
+    
+    <div class="text-center mb-3">
+      @if (user.isFavourite) {
+        <button class="btn btn-outline-warning" (click)="toggleFavorite()">Desmarcar como favorito</button>
       } @else {
-      <button (click)="toggleFavorite()">Marcar como favorito</button>
+        <button class="btn btn-warning" (click)="toggleFavorite()">Marcar como favorito</button>
       }
     </div>
-    @if (productsService.products.length === 0) {
-    <p> Todavía no hay productos, explora otros restaurantes!</p>
-    } @else {
-    <ul class="menu-list">
+  </div>
+
+  
+  @if (productsService.products.length === 0) {
+
+    <div class="alert alert-info text-center">
+      Todavía no hay productos, ¡explora otros restaurantes! 🍽️
+    </div>
+
+  } @else {
+
+    <h3 class="mb-3">Menú</h3>
+
+    <ul class="list-group">
       @for (product of productsService.products; track product.id) {
-      <li class="menu-item">
-        <strong>{{ product.name }}</strong>
 
-        @if (product.discount > 0) {
-        <span class=" discount">{{ product.discount }}% OFF</span>
-        }
-        @if (product.hasHappyHour) {
-        <span class=" happy-hour">Happy Hour</span>
-        }
+        <li class="list-group-item py-3">
 
-        <p>{{ product.description }}</p>
-        <p>Precio: $ {{ product.price }}</p>
-       <!-- <p>Categoría: {{getCategoryName(product.categoryId) }}</p> -->
-      </li>
+          
+          <div class="d-flex align-items-center justify-content-between">
+            <strong class="fs-5">{{ product.name }}</strong>
+
+            
+            <div>
+              @if (product.discount > 0) {
+                <span class="badge bg-danger me-2">{{ product.discount }}% OFF</span>
+              }
+              @if (product.hasHappyHour) {
+                <span class="badge bg-success">Happy Hour</span>
+              }
+            </div>
+          </div>
+
+          
+          <p class="mb-1 mt-2">{{ product.description }}</p>
+
+          
+          <p class="fw-bold mb-0">Precio: ${{ product.price }}</p>
+        </li>
+
       }
     </ul>
-    }
-  </div>
+
+  }
+
 }
+</div>

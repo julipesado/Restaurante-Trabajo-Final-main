@@ -10,6 +10,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './restaurant-list-item.scss'
 })
 export class RestaurantListItem {
+
   user= input.required<User>()
   aleatorio = Math.random()
   userService = inject(UserService)

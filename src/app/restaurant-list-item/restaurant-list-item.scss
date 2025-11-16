@@ -1,0 +1,25 @@
+.restaurant-item {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background: #f8f9fa;
+    transform: scale(1.01);
+    cursor: pointer;
+  }
+}
+
+.is-favourite {
+  border-left: 5px solid #f1c40f;
+}
+
+.restaurant-name {
+  font-size: 1.2rem;
+}
+
+.restaurant-phone {
+  font-size: 0.9rem;
+}

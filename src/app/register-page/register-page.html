@@ -1,140 +1,150 @@
-<div id="container" class="register-container card">
-  <h1 class="register-title">Registrarse</h1>
+<div class="container my-5">
+  <div class="card shadow-lg p-4 border-0" style="max-width: 550px; margin: auto; border-radius: 20px;">
+    
+    <h1 class="text-center mb-4 fw-bold" style="color:#8B4513;">🍽️ Registrarse</h1>
 
-  <form #registerForm="ngForm" (ngSubmit)="register(registerForm)" class="register-form">
+    <form #registerForm="ngForm" (ngSubmit)="register(registerForm)" class="needs-validation">
 
-    <div class="form-group">
-      <label for="restaurantName" class="form-label">Nombre del Restaurante</label>
-      <input 
-        id="restaurantName"
-        name="restaurantName"
-        type="text"
-        class="form-input"
-        ngModel 
-        #restaurantName="ngModel"
-        minlength="4"
-        autocomplete="organization"
-      >
-      @if (restaurantName.invalid && !restaurantName.pristine) {
-        <p class="error-message">Debe colocar un nombre de al menos 4 caracteres.</p>
+      <!-- Nombre del restaurante -->
+      <div class="mb-3">
+        <label for="restaurantName" class="form-label fw-semibold">Nombre del Restaurante</label>
+        <input 
+          id="restaurantName"
+          name="restaurantName"
+          type="text"
+          class="form-control"
+          ngModel 
+          #restaurantName="ngModel"
+          minlength="4"
+          autocomplete="organization">
+        @if (restaurantName.invalid && !restaurantName.pristine) {
+          <div class="text-danger small">Debe colocar un nombre de al menos 4 caracteres.</div>
+        }
+      </div>
+
+      <!-- Contraseña -->
+      <div class="mb-3">
+        <label for="password" class="form-label fw-semibold">Contraseña</label>
+        <input 
+          id="password"
+          name="password"
+          type="password"
+          class="form-control"
+          ngModel 
+          #password="ngModel"
+          minlength="4"
+          autocomplete="new-password">
+        @if (password.invalid && !password.pristine) {
+          <div class="text-danger small">Debe colocar una contraseña de al menos 4 caracteres.</div>
+        }
+      </div>
+
+      <!-- Repetir contraseña -->
+      <div class="mb-3">
+        <label for="password2" class="form-label fw-semibold">Repetir contraseña</label>
+        <input 
+          id="password2"
+          name="password2"
+          type="password"
+          class="form-control"
+          ngModel 
+          #password2="ngModel"
+          minlength="4"
+          autocomplete="new-password">
+        @if (password2.invalid && !password2.pristine) {
+          <div class="text-danger small">Debe repetir correctamente la contraseña.</div>
+        }
+      </div>
+
+      <!-- Nombre -->
+      <div class="mb-3">
+        <label for="firstName" class="form-label fw-semibold">Nombre</label>
+        <input 
+          id="firstName"
+          name="firstName"
+          type="text"
+          class="form-control"
+          ngModel 
+          #firstName="ngModel"
+          minlength="2"
+          autocomplete="given-name">
+        @if (firstName.invalid && !firstName.pristine) {
+          <div class="text-danger small">Debe colocar un nombre válido.</div>
+        }
+      </div>
+
+      <!-- Apellido -->
+      <div class="mb-3">
+        <label for="lastName" class="form-label fw-semibold">Apellido</label>
+        <input 
+          id="lastName"
+          name="lastName"
+          type="text"
+          class="form-control"
+          ngModel 
+          #lastName="ngModel"
+          minlength="2"
+          autocomplete="family-name">
+        @if (lastName.invalid && !lastName.pristine) {
+          <div class="text-danger small">Debe colocar un apellido válido.</div>
+        }
+      </div>
+
+      <!-- Dirección -->
+      <div class="mb-3">
+        <label for="address" class="form-label fw-semibold">Dirección</label>
+        <input 
+          id="address"
+          name="address"
+          type="text"
+          class="form-control"
+          ngModel 
+          #address="ngModel"
+          minlength="4"
+          autocomplete="street-address">
+        @if (address.invalid && !address.pristine) {
+          <div class="text-danger small">Debe colocar una dirección válida.</div>
+        }
+      </div>
+
+      <!-- Telefono -->
+      <div class="mb-3">
+        <label for="phoneNumber" class="form-label fw-semibold">Número de teléfono</label>
+        <input 
+          id="phoneNumber"
+          name="phoneNumber"
+          type="tel"
+          class="form-control"
+          ngModel 
+          #phoneNumber="ngModel"
+          minlength="6"
+          autocomplete="tel">
+        @if (phoneNumber.invalid && !phoneNumber.pristine) {
+          <div class="text-danger small">Debe colocar un número válido.</div>
+        }
+      </div>
+
+      <!-- Botón -->
+      <button [disabled]="isLoading" type="submit" class="btn w-100 text-white py-2 fw-semibold" 
+        style="background-color:#D2691E; border-radius:12px;">
+        Registrarme
+      </button>
+
+      <!-- Error -->
+      @if (errorRegister) {
+        <p class="text-danger text-center mt-3">Error indeterminado, intente nuevamente.</p>
       }
+
+      <!-- Link login -->
+      <p class="text-center mt-4">
+        ¿Ya tenés cuenta?
+        <a routerLink="/login" class="fw-semibold" style="color:#8B4513;">Iniciar sesión</a>
+      </p>
+    </form>
+
+    <div class="text-center mt-2">
+      <a routerLink="/" class="text-decoration-none" style="color:#8B4513;">Explorar restaurantes</a>
     </div>
 
-    <div class="form-group">
-      <label for="password" class="form-label">Contraseña</label>
-      <input 
-        id="password"
-        name="password"
-        type="password"
-        class="form-input"
-        ngModel 
-        #password="ngModel"
-        minlength="4"
-        autocomplete="new-password"
-      >
-      @if (password.invalid && !password.pristine) {
-        <p class="error-message">Debe colocar una contraseña de al menos 4 caracteres.</p>
-      }
-    </div>
-
-    <div class="form-group">
-      <label for="password2" class="form-label">Repite la contraseña</label>
-      <input 
-        id="password2"
-        name="password2"
-        type="password"
-        class="form-input"
-        ngModel 
-        #password2="ngModel"
-        minlength="4"
-        autocomplete="new-password"
-      >
-      @if (password2.invalid && !password2.pristine) {
-        <p class="error-message">Debe repetir correctamente la contraseña.</p>
-      }
-    </div>
-
-    <div class="form-group">
-      <label for="firstName" class="form-label">Nombre</label>
-      <input 
-        id="firstName"
-        name="firstName"
-        type="text"
-        class="form-input"
-        ngModel 
-        #firstName="ngModel"
-        minlength="2"
-        autocomplete="given-name"
-      >
-      @if (firstName.invalid && !firstName.pristine) {
-        <p class="error-message">Debe colocar un nombre válido.</p>
-      }
-    </div>
-
-    <div class="form-group">
-      <label for="lastName" class="form-label">Apellido</label>
-      <input 
-        id="lastName"
-        name="lastName"
-        type="text"
-        class="form-input"
-        ngModel 
-        #lastName="ngModel"
-        minlength="2"
-        autocomplete="family-name"
-      >
-      @if (lastName.invalid && !lastName.pristine) {
-        <p class="error-message">Debe colocar un apellido válido.</p>
-      }
-    </div>
-
-    <div class="form-group">
-      <label for="address" class="form-label">Dirección</label>
-      <input 
-        id="address"
-        name="address"
-        type="text"
-        class="form-input"
-        ngModel 
-        #address="ngModel"
-        minlength="4"
-        autocomplete="street-address"
-      >
-      @if (address.invalid && !address.pristine) {
-        <p class="error-message">Debe colocar una dirección válida.</p>
-      }
-    </div>
-
-    <div class="form-group">
-      <label for="phoneNumber" class="form-label">Número de teléfono</label>
-      <input 
-        id="phoneNumber"
-        name="phoneNumber"
-        type="tel"
-        class="form-input"
-        ngModel 
-        #phoneNumber="ngModel"
-        minlength="6"
-        autocomplete="tel"
-      >
-      @if (phoneNumber.invalid && !phoneNumber.pristine) {
-        <p class="error-message">Debe colocar un número válido.</p>
-      }
-    </div>
-
-    <button [disabled]="isLoading" class="register-button" type="submit">
-      Registrarme
-    </button>
-
-    @if (errorRegister) {
-      <p class="error-message register-error">Error indeterminado, intente nuevamente.</p>
-    }
-
-    <p class="login-text">
-      ¿Ya tenés cuenta?
-      <a routerLink="/login" class="login-link">Inicia sesión</a>
-    </p>
-  </form>
-
-  <a routerLink="/" class="explore-link">Explorar restaurantes</a>
+  </div>
 </div>
