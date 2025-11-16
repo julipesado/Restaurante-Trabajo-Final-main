@@ -6,6 +6,7 @@ import { RegisterPage } from './register-page/register-page';
 import { LoggedLayout } from './logged-layout/logged-layout';
 import { onlyLoggedUserGuard } from './guards/only-logged-user-guard';
 import { RestaurantPage } from './restaurant-page/restaurant-page';
+import { AddProducts } from './add-products/add-products';
 
 export const routes: Routes = [
     {
@@ -33,4 +34,9 @@ export const routes: Routes = [
         component: LoggedLayout,
         canActivate: [onlyLoggedUserGuard]
     },
+    {
+        path: "add-product",
+        component: AddProducts,
+        canActivate: [onlyLoggedUserGuard]
+    }
 ];
