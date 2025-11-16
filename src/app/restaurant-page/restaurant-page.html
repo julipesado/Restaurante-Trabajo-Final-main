@@ -43,8 +43,13 @@
   @if (productsService.products.length === 0) {
 
     <div class="alert alert-info text-center">
-      Todavía no hay productos, ¡explora otros restaurantes! 🍽️
-    </div>
+  Todavía no hay productos.
+  <button class="link-button" (click)="goToRestaurants()">
+    ¡Explorar otros restaurantes!
+  </button>
+</div>
+
+
 
   } @else {
 

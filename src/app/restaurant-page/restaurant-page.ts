@@ -3,7 +3,7 @@ import { UserService } from '../services/user-service';
 import { ProductsService } from '../services/products-service';
 import { User } from '../interfaces/interfaces/user';
 import { Categories } from '../categories/categories';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-restaurant-page',
@@ -12,11 +12,16 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./restaurant-page.scss']
 })
 export class RestaurantPage implements OnInit {
+  
+  // Servicios
   userService = inject(UserService);
+  productsService = inject(ProductsService);
+  router = inject(Router);   // <<--- AGREGADO
+
+  // Inputs y datos
   id = input.required<number>();
   user: User | undefined = undefined;
   categories: Categories[] = [];
-  productsService = inject(ProductsService);
 
   async ngOnInit() {
     this.user = await this.userService.getUserById(this.id());
@@ -47,4 +52,10 @@ export class RestaurantPage implements OnInit {
       this.user.isFavourite = !this.user.isFavourite;
     }
   }
+
+  // ⭐⭐⭐ MÉTODO QUE TE FALTABA ⭐⭐⭐
+  goToRestaurants() {
+    this.router.navigate(['/']);
+  }
+
 }
