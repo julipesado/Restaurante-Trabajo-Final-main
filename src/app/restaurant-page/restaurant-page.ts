@@ -2,7 +2,7 @@ import { Component, inject, input, OnInit } from '@angular/core';
 import { UserService } from '../services/user-service';
 import { ProductsService } from '../services/products-service';
 import { User } from '../interfaces/interfaces/user';
-import { Categories } from '../categories/add-categories';
+import { Category } from '../interfaces/interfaces/categories';
 import { RouterLink, Router } from '@angular/router';
 
 @Component({
@@ -21,7 +21,7 @@ export class RestaurantPage implements OnInit {
   // Inputs y datos
   id = input.required<number>();
   user: User | undefined = undefined;
-  categories: Categories[] = [];
+  categories: Category[] = [];
 
   async ngOnInit() {
     this.user = await this.userService.getUserById(this.id());
