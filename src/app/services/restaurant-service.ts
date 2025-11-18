@@ -6,13 +6,15 @@ import id from "@angular/common/locales/id";
   providedIn: "root"
 })
 export class RestaurantService {}
-    /*authService = inject(AuthService)
+   /**  authService=  inject(AuthService)
+    Restaurant= inject(RestaurantService)
 
-    favoriteRestaurant () {
-        const restaurantefavorito = localStorage.setItem("res-" + id + "-fav", "true")
+    favoriteRestaurant (id:number) {
+        const restaurantefavorito = localStorage.setItem( this.favoriteRestaurant)
         restaurantefavorito = true
         if (restaurantefavorito){
             return ⭐
         }
 
-    }*/
+    }
+  */ 

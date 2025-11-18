@@ -72,9 +72,9 @@ export class ProductsService implements OnInit {
       body: JSON.stringify(productoEditado),
     });
     if (!res.ok) return;
-    this.products = this.products.map(contact => {
-      if (contact.id === productoEditado.id) return productoEditado;
-      return contact
+    this.products = this.products.map(product => {
+      if (product.id === productoEditado.id) return productoEditado;
+      return product
     })
     return productoEditado;
   }

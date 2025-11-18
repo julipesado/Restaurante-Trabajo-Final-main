@@ -2,7 +2,7 @@ import { Component, inject, input, OnInit } from '@angular/core';
 import { UserService } from '../services/user-service';
 import { ProductsService } from '../services/products-service';
 import { User } from '../interfaces/interfaces/user';
-import { Categories } from '../categories/categories';
+import { Categories } from '../categories/add-categories';
 import { RouterLink, Router } from '@angular/router';
 
 @Component({
