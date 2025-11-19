@@ -9,8 +9,6 @@
   </a>
 
   @if (user) {
-
-  
   <div class="card shadow-sm p-4 mb-4">
     
     <h2 class="text-center fw-bold mb-3">
@@ -22,8 +20,6 @@
         <span class="badge bg-warning text-dark">⭐ Favorito</span>
       }
     </div>
-
-    
     <div class="mb-3">
       <p class="mb-1"><i class="bi bi-telephone me-2"></i>{{ user.phoneNumber }}</p>
       <p class="mb-1"><i class="bi bi-geo-alt me-2"></i>{{ user.address }}</p>
@@ -49,22 +45,25 @@
   </button>
 </div>
 
-
-
   } @else {
 
     <h3 class="mb-3">Menú</h3>
 
     <ul class="list-group">
+      <div class="categories-nav">
+          @for (category of categories; track category.id) {
+            <button 
+              class="category-filter"
+              (click)="selectCategory(category.id)"
+              [class.active]="selectedCategoryId() === category.id">
+              {{ category.name }}
+            </button>
+          }
+        </div>
       @for (product of productsService.products; track product.id) {
-
         <li class="list-group-item py-3">
-
-          
           <div class="d-flex align-items-center justify-content-between">
             <strong class="fs-5">{{ product.name }}</strong>
-
-            
             <div>
               @if (product.discount > 0) {
                 <span class="badge bg-danger me-2">{{ product.discount }}% OFF</span>
@@ -74,17 +73,11 @@
               }
             </div>
           </div>
-
-          
           <p class="mb-1 mt-2">{{ product.description }}</p>
-
-          
-          <p class="fw-bold mb-0">Precio: ${{ product.price }}</p>
+          <p class="fw-bold mb-0">Precio: $ {{getFinalPrice(product)}} </p>
         </li>
-
       }
     </ul>
-
   }
 
 }

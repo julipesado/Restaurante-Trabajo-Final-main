@@ -43,8 +43,8 @@ export class CategoriesService implements OnInit{
     return resJson;
   }
 
-  async editCategory(id: number, categoriaEditada: Category) {
-    const res = await fetch("https://w370351.ferozo.com/api/Categories" + "/" + id, {
+  async editCategory(categoriaEditada: Category) {
+    const res = await fetch("https://w370351.ferozo.com/api/Categories" + "/" + categoriaEditada.id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

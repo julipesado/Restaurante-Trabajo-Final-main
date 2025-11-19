@@ -23,11 +23,15 @@
         </div>
         <div>
             <label for="discount">Descuento</label>
-            <input type="text" id="descuento" name="descuento">
+            <input type="text" id="descuento" name="descuento" %>
         </div>
         <div>
             <label for="hasHappyHour">Happy hour</label>
-            <input type="text" id="happyhour" name="happyhour">          
+            <input type="checkbox" id="happyhour" name="happyhour">          
+        </div>
+        <div>
+            <label for="featured">Producto destacado</label>
+            <input type="checkbox" name="featured" id="featured">
         </div>
         @if (idProducto()) {
             <button [disabled]="newProductForm.invalid || isLoading"> Guardar cambios</button>
