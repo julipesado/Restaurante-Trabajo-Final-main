@@ -23,7 +23,10 @@ export class RestaurantPage implements OnInit {
   id = input.required<number>();
   user: User | undefined = undefined;
   categories: Category[] = [];
+<<<<<<< HEAD
   selectedCategoryId = signal<number | null>(null);
+=======
+>>>>>>> d65425bbd79db3cb879cc38a204a2f8614b3ef8b
 
   async ngOnInit() {
     this.user = await this.userService.getUserById(this.id());
