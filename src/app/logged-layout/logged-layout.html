@@ -7,6 +7,7 @@
 
 <button (click)="logOut()"> Log out</button>
 <a [routerLink]="['/add-product']"> Agregar productos</a>
+<a [routerLink]="['/add-categories']">Agregar categorias</a>
 <ul>
     @for (productoIndividual of productService.products; track $index) {
         <app-product-list-item [product]="productoIndividual"></app-product-list-item>

@@ -1,9 +1,10 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { UserService } from '../services/user-service';
 import { ProductsService } from '../services/products-service';
 import { User } from '../interfaces/interfaces/user';
 import { Category } from '../interfaces/interfaces/categories';
 import { RouterLink, Router } from '@angular/router';
+import { Product } from '../interfaces/interfaces/product';
 
 @Component({
   selector: 'app-restaurant-page',
@@ -22,6 +23,7 @@ export class RestaurantPage implements OnInit {
   id = input.required<number>();
   user: User | undefined = undefined;
   categories: Category[] = [];
+  selectedCategoryId = signal<number | null>(null);
 
   async ngOnInit() {
     this.user = await this.userService.getUserById(this.id());
@@ -45,6 +47,12 @@ export class RestaurantPage implements OnInit {
       .catch(error => {
         console.log('Error al traer las categorías:', error);
       });
+      if (this.categories.length > 0) {
+        this.selectedCategoryId.set(this.categories[0].id);
+      }
+  }
+  selectCategory(categoryId: number) {
+    this.selectedCategoryId.set(categoryId);
   }
 
   async toggleFavorite() {
@@ -56,6 +64,12 @@ export class RestaurantPage implements OnInit {
   // ⭐⭐⭐ MÉTODO QUE TE FALTABA ⭐⭐⭐
   goToRestaurants() {
     this.router.navigate(['/']);
+  }
+  getFinalPrice(product: Product): number {
+    if (!product.discount || product.discount === 0) {
+      return product.price;
+    }
+    return product.price - (product.price * (product.discount / 100));
   }
 
 }

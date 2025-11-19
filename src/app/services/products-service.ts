@@ -1,6 +1,6 @@
 import { inject, Injectable, OnInit, signal } from "@angular/core";
 import { AuthService } from "./auth-service";
-import { Product, NewProduct } from "../interfaces/interfaces/product";
+import { Product, NewProduct, HappyHour } from "../interfaces/interfaces/product";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class ProductsService implements OnInit {
         method: "POST",
         body: JSON.stringify(nuevoProducto),
         headers: {
-          "Content-Type": "application/json", Authorization: "Bearer" + this.authService.token,
+          "Content-Type": "application/json", Authorization: "Bearer " + this.authService.token,
         },
       })
     if (!res.ok) {
@@ -90,31 +90,24 @@ export class ProductsService implements OnInit {
     }
     return true;
   }
-  async setHappyHour(id: string | number) {
+  async setHappyHour(id: string | number, hasHappyHour: HappyHour) {
     const res = await fetch("https://w370351.ferozo.com/api/products/" + id + "/happyHour",
       {
-        method: "POST",
+        method: "PATCH",
         headers: {
-          Authorization: "Bearer" + this.authService.token,
-        }
+          Authorization: "Bearer " + this.authService.token,
+        },
+        body: JSON.stringify(hasHappyHour)
       });
-    if (!res.ok) {
-      return
-    }
-    this.products = this.products.map(product => {
-      if (product.id === id) {
-        return { ...product, hasHappyHour: !product.hasHappyHour };
-      };
-      return product;
-    });
-    return true;
+  
+    return res.ok;
   }
   async setDiscount(id:number | string, discount: number){
     const res = await fetch ("https://w370351.ferozo.com/api/products/" + id + "/discount",
       {
         method: "POST",
         headers: {
-          Authorization: "Bearer" + this.authService.token,
+          Authorization: "Bearer " + this.authService.token,
         },
         body: JSON.stringify(discount),
       });
@@ -129,4 +122,11 @@ export class ProductsService implements OnInit {
     });
     return true;
   }
+  getFinalPrice(product: Product): number {
+    if (!product.discount || product.discount === 0) {
+      return product.price;
+    }
+    return product.price - (product.price * (product.discount / 100));
+  }
+
 }

@@ -4,6 +4,8 @@ import { ProductsService } from "../services/products-service";
 import { FormsModule, NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { NewProduct, Product } from "../interfaces/interfaces/product";
+import { CategoriesService } from "../services/categories-service";
+import { Category } from "../interfaces/interfaces/categories";
 
 @Component({
   selector: 'app-add-products',
@@ -19,7 +21,9 @@ export class AddProducts implements OnInit {
   productoOriginal: Product | undefined = undefined;
   form = viewChild<NgForm>('newProductForm');
   isLoading = false; 
-  product: Product | undefined; 
+  product: Product | undefined;
+  categoriesService = inject (CategoriesService)
+  categories: Category[] = []
 
 
   async ngOnInit() {
@@ -37,14 +41,29 @@ export class AddProducts implements OnInit {
       }) 
     }
   }
-  async handleFormSubmission(newProduct: NewProduct) {
+  async handleFormSubmission(form: NgForm) {
+     const nuevoProducto: NewProduct = {
+      name: form.value.name,
+      description: form.value.descripcion,
+      price: parseInt(form.value.price),
+      featured: form.value.featured,
+      recommendedFor: parseInt(form.value.recommendedFor),
+      discount: parseInt(form.value.discount),
+      hasHappyHour: form.value.hasHappyHour,
+      categoryId: parseInt(form.value.categoryId),
+      restaurantId: this.authService.getUserId(),
+    };
     let res;
-    this.isLoading= true
+    this.isLoading = true;
     if (this.idProducto()) {
-      res = await this.productService.editProduct({ ...newProduct, id: this.idProducto()!});
+      res = await this.productService.editProduct({
+        ...nuevoProducto,
+        id: this.idProducto()!
+      });
     } else {
-      res = await this.productService.createProduct(newProduct);
+      res = await this.productService.createProduct(nuevoProducto);
     }
+
     this.isLoading = false;
     this.router.navigate(["/admin"])
     }

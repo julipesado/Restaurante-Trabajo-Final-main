@@ -32,7 +32,7 @@ async ngOnInit() {
   let res; 
   this.isLoading= true
   if (this.idCategory()){
-    res= await this.categoryService.editCategory({ id: this.idCategory()!, ...newCategory});
+    res= await this.categoryService.editCategory({...newCategory, id: this.idCategory()!});
   } else {
     res= await this.categoryService.createCategory(newCategory);
   }
