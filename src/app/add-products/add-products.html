@@ -5,7 +5,7 @@
         <h2>Agregar producto</h2>
     }
 <div>
-    <form (ngSubmit)="handleFormSubmission(newProductForm.value)" #newProductForm="ngForm">
+    <form (ngSubmit)="handleFormSubmission(newProductForm)" #newProductForm="ngForm">
         <div>
             <label for="name">Nombre del producto*</label>
             <input id="name" name="name" type="text" ngModel requiered ="true" minlength="2" #name="ngModel">
@@ -23,18 +23,23 @@
         </div>
         <div>
             <label for="discount">Descuento</label>
-            <input type="text" id="descuento" name="descuento" %>
+            <input type="text" id="descuento" name="descuento">
         </div>
         <div>
             <label for="hasHappyHour">Happy hour</label>
             <input type="checkbox" id="happyhour" name="happyhour">          
-<<<<<<< HEAD
         </div>
         <div>
             <label for="featured">Producto destacado</label>
             <input type="checkbox" name="featured" id="featured">
-=======
->>>>>>> d65425bbd79db3cb879cc38a204a2f8614b3ef8b
+        </div>
+        <div>
+            <label for="categoria">Categoria</label>
+            <select name="categoryId" id="categoryId" required ngModel #categoryId="ngModel">
+                    @for (category of this.categoriesService.categories; track $index) {
+                    <option [value]="category.id">{{ category.name }}</option>
+                    }
+            </select>
         </div>
         @if (idProducto()) {
             <button [disabled]="newProductForm.invalid || isLoading"> Guardar cambios</button>

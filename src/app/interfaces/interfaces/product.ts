@@ -8,6 +8,7 @@ export interface Product {
     discount: number,
     hasHappyHour: boolean,
     featured: boolean, 
+    restaurantId: number
 }
 export type NewProduct = Omit<Product, "id">;
 export interface HappyHour{

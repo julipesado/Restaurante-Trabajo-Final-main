@@ -24,8 +24,6 @@
       <p class="mb-1"><i class="bi bi-telephone me-2"></i>{{ user.phoneNumber }}</p>
       <p class="mb-1"><i class="bi bi-geo-alt me-2"></i>{{ user.address }}</p>
     </div>
-
-    
     <div class="text-center mb-3">
       @if (user.isFavourite) {
         <button class="btn btn-outline-warning" (click)="toggleFavorite()">Desmarcar como favorito</button>
@@ -34,8 +32,6 @@
       }
     </div>
   </div>
-
-  
   @if (productsService.products.length === 0) {
 
     <div class="alert alert-info text-center">

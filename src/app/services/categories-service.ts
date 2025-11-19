@@ -19,7 +19,7 @@ export class CategoriesService implements OnInit{
     const res = await fetch("https://w370351.ferozo.com/api/Categories" + restaurantId + this.authService.getUserId,
       {
         headers: {
-          Authorization: "Bearer" + this.authService.token,
+          Authorization: "Bearer " + this.authService.token,
         },
       })
     if (!res.ok) {
@@ -33,7 +33,7 @@ export class CategoriesService implements OnInit{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: "Bearer" + this.authService.token,
+        Authorization: "Bearer " + this.authService.token,
       },
       body: JSON.stringify(nuevaCategory)
     });
@@ -48,7 +48,7 @@ export class CategoriesService implements OnInit{
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': "Bearer" + this.authService.token,
+        'Authorization': "Bearer " + this.authService.token,
       },
       body: JSON.stringify(categoriaEditada)
     });
@@ -64,7 +64,7 @@ export class CategoriesService implements OnInit{
     const res = await fetch("https://w370351.ferozo.com/api/Categories" + id, {
       method: 'DELETE',
       headers: {
-        Authorization: "Bearer" + this.authService.token
+        Authorization: "Bearer " + this.authService.token
       }
     });
     if (!res.ok) return;{

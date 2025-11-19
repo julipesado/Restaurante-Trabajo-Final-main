@@ -17,7 +17,7 @@ export class ProductsService implements OnInit {
         method: "POST",
         body: JSON.stringify(nuevoProducto),
         headers: {
-          "Content-Type": "application/json", Authorization: "Bearer" + this.authService.token,
+          "Content-Type": "application/json", Authorization: "Bearer " + this.authService.token,
         },
       })
     if (!res.ok) {
@@ -95,7 +95,7 @@ export class ProductsService implements OnInit {
       {
         method: "PATCH",
         headers: {
-          Authorization: "Bearer" + this.authService.token,
+          Authorization: "Bearer " + this.authService.token,
         },
         body: JSON.stringify(hasHappyHour)
       });
@@ -107,7 +107,7 @@ export class ProductsService implements OnInit {
       {
         method: "POST",
         headers: {
-          Authorization: "Bearer" + this.authService.token,
+          Authorization: "Bearer " + this.authService.token,
         },
         body: JSON.stringify(discount),
       });

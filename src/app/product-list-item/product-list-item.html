@@ -3,9 +3,11 @@
     <span class="productData">{{product().price}}</span>
     <span class="productData">{{product().description}}</span>
     <span class="productData">{{product().discount}}</span>
-    <span class="productData">{{product().hasHappyHour}}</span>
+    @if (product().hasHappyHour) {
+        <p> Happy Hour! 🥳</p>
+    }
     <span class="acciones">
         <button class="botonBorrar" (click)="deleteProduct()">Borrar</button>
-        <a class="botonEdit" [routerLink]="['/add-product', product().id, 'edit']">Editar</a>
+        <a class="botonEdit" [routerLink]="['/add-product']">Editar</a>
     </span>
 </li>
