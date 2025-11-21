@@ -1,10 +1,13 @@
+<div class="d-flex justify-content-end mt-3 me-3">
+  <a [routerLink]="['/login']" class="btn btn-primary">
+    Login
+  </a>
+</div>
+
 <h1>Restaurantes</h1>
 
 <ul class="restaurant-grid">
   @for (usuarioIndividual of userService.users; track $index) {
-    <app-restaurant-list-item 
-      [user]="usuarioIndividual">
-    </app-restaurant-list-item>
-}
+    <app-restaurant-list-item [user]="usuarioIndividual"></app-restaurant-list-item>
+  }
 </ul>
-<a [routerLink]="['/login']" class="login-link">Login</a>

@@ -21,10 +21,12 @@
             <label for="description">Descripción</label>
             <input type="text" id="descripcion" name="description">
         </div>
-        <div>
-            <label for="discount">Descuento</label>
-            <input type="text" id="descuento" name="descuento">
+        <div class="input-wrapper">
+             <label for="descuento">Descuento</label>
+             <input type="text" id="descuento" name="descuento">
+             <span class="percent-symbol">%</span>
         </div>
+
         <div>
             <label for="hasHappyHour">Happy hour</label>
             <input type="checkbox" id="happyhour" name="happyhour">          
@@ -34,7 +36,7 @@
             <input type="checkbox" name="featured" id="featured">
         </div>
         <div>
-            <label for="categoria">Categoria</label>
+            <label for="categoria">Categoría*</label>
             <select name="categoryId" id="categoryId" required ngModel #categoryId="ngModel">
                     @for (category of this.categoriesService.categories; track $index) {
                     <option [value]="category.id">{{ category.name }}</option>
