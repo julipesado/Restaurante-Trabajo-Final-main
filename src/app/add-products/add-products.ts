@@ -28,7 +28,7 @@ export class AddProducts implements OnInit {
 
   async ngOnInit() {
     if (this.idProducto()) {
-      this.productoOriginal = await this.productService.getProductsById(this.idProducto()!) //* el ! dsp de la variable significa que esta revisado de que no es undefined 
+      this.productoOriginal = await this.productService.getRestaurantProducts(this.idProducto()!) //* el ! dsp de la variable significa que esta revisado de que no es undefined 
       this.form()?.setValue({
         name: this.productoOriginal!.name,
         id: this.productoOriginal!.id,

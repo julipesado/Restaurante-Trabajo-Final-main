@@ -10,13 +10,12 @@ export class CategoriesService implements OnInit{
 
   }
   authService = inject(AuthService);
-  readonly API_USERS_URL = "https://w370351.ferozo.com/api/Users";
-  categories: Category[] = [];
+  restaurantCategories: Category[] = [];
+  userCategories: Category[] = []; 
+  selectedCategoryId = signal<number | null>(null);
 
-
-
-  async getCategoriesById(restaurantId: number) {
-    const res = await fetch("https://w370351.ferozo.com/api/Categories" + restaurantId + this.authService.getUserId,
+  async getCategoriesById(id: number | string) {
+    const res = await fetch("https://w370351.ferozo.com/api/Categories"  + id,
       {
         headers: {
           Authorization: "Bearer " + this.authService.token,
@@ -25,7 +24,9 @@ export class CategoriesService implements OnInit{
     if (!res.ok) {
       return; 
     }
-    return await res.json(); 
+    this.restaurantCategories =  await res.json(); 
+    return this.restaurantCategories.length> 0,
+      this.restaurantCategories[0], undefined;
   }
 
   async createCategory(nuevaCategory: NewCategory) {
@@ -39,7 +40,7 @@ export class CategoriesService implements OnInit{
     });
     if (!res.ok) return;
     const resJson: Category = await res.json();
-    this.categories.push(resJson);
+    this.userCategories.push(resJson);
     return resJson;
   }
 
@@ -53,13 +54,12 @@ export class CategoriesService implements OnInit{
       body: JSON.stringify(categoriaEditada)
     });
     if (!res.ok) return;
-    this.categories = this.categories.map(category => {
+    this.userCategories = this.userCategories.map(category => {
       if (category.id === categoriaEditada.id) return categoriaEditada;
       return category 
     })
   }
   
-
   async deleteCategory(id: string | number) {
     const res = await fetch("https://w370351.ferozo.com/api/Categories" + id, {
       method: 'DELETE',
@@ -68,9 +68,29 @@ export class CategoriesService implements OnInit{
       }
     });
     if (!res.ok) return;{
-      this.categories = this.categories.filter(category => category.id !== id)
+      this.userCategories = this.userCategories.filter(category => category.id !== id)
     }
     return true;
   }
+
+async getCategories(userId: string | number) {
+    const res = fetch("https://w370351.ferozo.com/api/users" + userId + "/categories")
+      .then(response => response.json())
+      .then(data => {
+        this.userCategories = data;
+        console.log('Categorías cargadas:', data);
+      })
+      .catch(error => {
+        console.log('Error al traer las categorías:', error);
+      });
+      if (this.userCategories.length > 0) {
+        this.selectedCategoryId.set(this.userCategories[0].id);
+      }
+  }
+
+  selectCategory(categoryId: number) {
+    this.selectedCategoryId.set(categoryId);
+  }
+
 }
 

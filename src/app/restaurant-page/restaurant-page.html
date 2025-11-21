@@ -1,6 +1,6 @@
 <div class="container my-4">
 
-  
+
   <a routerLink="/" class="text-decoration-none text-dark">
     <div class="d-flex align-items-center mb-3">
       <i class="bi bi-arrow-left me-2"></i>
@@ -10,14 +10,14 @@
 
   @if (user) {
   <div class="card shadow-sm p-4 mb-4">
-    
+
     <h2 class="text-center fw-bold mb-3">
       {{ user.restaurantName }}
     </h2>
 
     <div class="text-center mb-3">
-      @if (user.isFavourite) {
-        <span class="badge bg-warning text-dark">⭐ Favorito</span>
+      @if (restaurantService.isFavoriteRestaurant(user.id)) {
+      <span class="badge bg-warning text-dark">⭐ Favorito</span>
       }
     </div>
     <div class="mb-3">
@@ -25,56 +25,53 @@
       <p class="mb-1"><i class="bi bi-geo-alt me-2"></i>{{ user.address }}</p>
     </div>
     <div class="text-center mb-3">
-      @if (user.isFavourite) {
-        <button class="btn btn-outline-warning" (click)="toggleFavorite()">Desmarcar como favorito</button>
+      @if (restaurantService.isFavoriteRestaurant(user.id)) {
+      <button class="btn btn-outline-warning" (click)="toggleFavorite()">Desmarcar como favorito</button>
       } @else {
-        <button class="btn btn-warning" (click)="toggleFavorite()">Marcar como favorito</button>
+      <button class="btn btn-warning" (click)="toggleFavorite()">Marcar como favorito</button>
       }
     </div>
   </div>
-  @if (productsService.products.length === 0) {
-
-    <div class="alert alert-info text-center">
-  Todavía no hay productos.
-  <button class="link-button" (click)="goToRestaurants()">
-    ¡Explorar otros restaurantes!
-  </button>
-</div>
+  @if (productsService.restaurantProducts.length === 0) {
+  <div class="alert alert-info text-center">
+    Todavía no hay productos.
+    <button class="link-button" (click)="goToRestaurants()">
+      ¡Explorar otros restaurantes!
+    </button>
+  </div>
 
   } @else {
 
-    <h3 class="mb-3">Menú</h3>
+  <h3 class="mb-3">Menú</h3>
 
-    <ul class="list-group">
-      <div class="categories-nav">
-          @for (category of categories; track category.id) {
-            <button 
-              class="category-filter"
-              (click)="selectCategory(category.id)"
-              [class.active]="selectedCategoryId() === category.id">
-              {{ category.name }}
-            </button>
+  <ul class="list-group">
+    <div class="categories-nav">
+      @for (category of categoriesService.restaurantCategories ; track category.id) {
+      <button class="category-filter" (click)="this.categoriesService.selectCategory(category.id)"
+        [class.active]="selectedCategoryId() === category.id">
+        {{ category.name }}
+      </button>
+      }
+    </div>
+    @for (product of productsService.restaurantProducts; track product.id) {
+    <li class="list-group-item py-3">
+      <div class="d-flex align-items-center justify-content-between">
+        <strong class="fs-5"> {{ product.name }} </strong>
+        <div>
+          @if (product.discount > 0) {
+          <span class="badge bg-danger me-2"> {{ product.discount }}% OFF </span>
+          }
+          @if (product.hasHappyHour) {
+          <span class="badge bg-success"> Happy Hour </span>
           }
         </div>
-      @for (product of productsService.products; track product.id) {
-        <li class="list-group-item py-3">
-          <div class="d-flex align-items-center justify-content-between">
-            <strong class="fs-5">{{ product.name }}</strong>
-            <div>
-              @if (product.discount > 0) {
-                <span class="badge bg-danger me-2">{{ product.discount }}% OFF</span>
-              }
-              @if (product.hasHappyHour) {
-                <span class="badge bg-success">Happy Hour</span>
-              }
-            </div>
-          </div>
-          <p class="mb-1 mt-2">{{ product.description }}</p>
-          <p class="fw-bold mb-0">Precio: $ {{getFinalPrice(product)}} </p>
-        </li>
-      }
-    </ul>
+      </div>
+      <p class="mb-1 mt-2">{{ product.description }}</p>
+      <p class="fw-bold mb-0">Precio: ${{getFinalPrice(product)}}</p>
+    </li>
+    }
+  </ul>
   }
 
-}
+  }
 </div>

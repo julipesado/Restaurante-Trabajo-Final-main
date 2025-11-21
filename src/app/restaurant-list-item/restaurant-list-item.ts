@@ -2,6 +2,7 @@ import { Component, inject, input } from '@angular/core';
 import { User } from '../interfaces/interfaces/user';
 import { UserService } from '../services/user-service';
 import { Router, RouterModule } from '@angular/router';
+import { RestaurantService } from '../services/restaurant-service';
 
 @Component({
   selector: 'app-restaurant-list-item',
@@ -15,5 +16,6 @@ export class RestaurantListItem {
   aleatorio = Math.random()
   userService = inject(UserService)
   router = inject(Router)
+  restaurantService = inject(RestaurantService);
 
 }

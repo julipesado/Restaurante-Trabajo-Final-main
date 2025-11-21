@@ -1,7 +1,7 @@
-<a [routerLink]="['/restaurant', user().id]"></a>
+<a [routerLink]="['/restaurant', user().id]">
 <li 
   class="restaurant-item list-group-item d-flex justify-content-between align-items-center py-3"
-  [class.is-favourite]="user().isFavourite === true">
+  [class.is-favourite]="restaurantService.isFavoriteRestaurant(user().id)">
 
   <div class="d-flex flex-column">
       <span class="restaurant-name fw-bold text-dark text-decoration-none fs-5">
@@ -13,11 +13,14 @@
     <span class="restaurant-address text-muted mt-1"> 
       📍{{user().address}}
     </span>
-
   </div>
+
   <div>
-      @if (user().isFavourite === true) {
+      @if (restaurantService.isFavoriteRestaurant(user().id)) {
         <span class="badge bg-warning text-dark fs-6">⭐</span>
       }
   </div>
+
 </li>
+
+</a>
