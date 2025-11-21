@@ -38,7 +38,7 @@
         <div>
             <label for="categoria">Categoría*</label>
             <select name="categoryId" id="categoryId" required ngModel #categoryId="ngModel">
-                    @for (category of this.categoriesService.categories; track $index) {
+                    @for (category of this.categoriesService.userCategories; track $index) {
                     <option [value]="category.id">{{ category.name }}</option>
                     }
             </select>

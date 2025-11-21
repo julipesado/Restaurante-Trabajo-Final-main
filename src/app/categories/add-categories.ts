@@ -15,7 +15,7 @@ export class AddCategories implements OnInit{
   categoryService = inject(CategoriesService)
   router=inject(Router)
   idCategory = input<number>();   
-  categoryOriginal: Category | undefined = undefined;
+  categoryOriginal: Category | undefined = undefined; 
   form = viewChild<NgForm>(`newCategoryForm`);
   isLoading = false;  
 

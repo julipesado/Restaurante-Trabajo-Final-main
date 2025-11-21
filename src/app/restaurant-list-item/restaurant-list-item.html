@@ -1,7 +1,14 @@
+<<<<<<< HEAD
+<a [routerLink]="['/restaurant', user().id]">
+<li 
+  class="restaurant-item list-group-item d-flex justify-content-between align-items-center py-3"
+  [class.is-favourite]="restaurantService.isFavoriteRestaurant(user().id)">
+=======
 <li 
   class="restaurant-item list-group-item d-flex justify-content-between align-items-center py-3"
   [class.is-favourite]="user().isFavourite === true"
 >
+>>>>>>> 9be70343420a3891f6011074e7ffda248435a650
 
   
   <div class="d-flex flex-column">
@@ -19,14 +26,18 @@
     <span class="restaurant-address text-muted mt-1"> 
       📍{{user().address}}
     </span>
-
   </div>
 
+<<<<<<< HEAD
+=======
   
+>>>>>>> 9be70343420a3891f6011074e7ffda248435a650
   <div>
-      @if (user().isFavourite === true) {
+      @if (restaurantService.isFavoriteRestaurant(user().id)) {
         <span class="badge bg-warning text-dark fs-6">⭐</span>
       }
   </div>
 
 </li>
+
+</a>

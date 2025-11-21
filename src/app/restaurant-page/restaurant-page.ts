@@ -5,6 +5,8 @@ import { User } from '../interfaces/interfaces/user';
 import { Category } from '../interfaces/interfaces/categories';
 import { RouterLink, Router } from '@angular/router';
 import { Product } from '../interfaces/interfaces/product';
+import { RestaurantService } from '../services/restaurant-service';
+import { CategoriesService } from '../services/categories-service';
 
 @Component({
   selector: 'app-restaurant-page',
@@ -13,55 +15,47 @@ import { Product } from '../interfaces/interfaces/product';
   styleUrls: ['./restaurant-page.scss']
 })
 export class RestaurantPage implements OnInit {
-  
+
   // Servicios
   userService = inject(UserService);
+  categoriesService = inject(CategoriesService)
   productsService = inject(ProductsService);
-  router = inject(Router);   // <<--- AGREGADO
+  restaurantService = inject(RestaurantService);
+  router = inject(Router);
 
   // Inputs y datos
-  id = input.required<number>();
+  idRestaurant = input.required<number>();
   user: User | undefined = undefined;
-  categories: Category[] = [];
+  categories = this.categoriesService.restaurantCategories
   selectedCategoryId = signal<number | null>(null);
 
-  async ngOnInit() {
-    this.user = await this.userService.getUserById(this.id());
-
-    const userId = localStorage.getItem('userId'); 
-
-    if (userId) {
-      this.getCategories(userId);
-    }
-
-    await this.productsService.getProductsByUserId(this.id());
-  }
-
-  getCategories(userId: string | number) {
-    fetch(`https://restaurant-api.somee.com/api/users/${userId}/categories`)
-      .then(response => response.json())
-      .then(data => {
-        this.categories = data;
-        console.log('Categorías cargadas:', data);
-      })
-      .catch(error => {
-        console.log('Error al traer las categorías:', error);
-      });
+  async ngOnInit(){
+     const restaurantId = this.idRestaurant();
+    if (restaurantId) {
+      this.user = this.userService.users.find(r => r.id === restaurantId);
+      if (!this.user) {
+        this.user = await this.userService.getUserById(restaurantId);
+      }
+      await this.productsService.getRestaurantProducts(restaurantId);
+      await this.categoriesService.getCategoriesById(restaurantId);
+      
+      // Seleccionar primera categoría por defecto
       if (this.categories.length > 0) {
         this.selectedCategoryId.set(this.categories[0].id);
       }
+    }
   }
-  selectCategory(categoryId: number) {
-    this.selectedCategoryId.set(categoryId);
-  }
-
   async toggleFavorite() {
     if (this.user) {
-      this.user.isFavourite = !this.user.isFavourite;
+
+      if (this.restaurantService.isFavoriteRestaurant(this.user.id))
+        this.restaurantService.unfavoriteRestaurant(this.user.id);
+      else
+        this.restaurantService.favoriteRestaurant(this.user.id);
+
     }
   }
 
-  // ⭐⭐⭐ MÉTODO QUE TE FALTABA ⭐⭐⭐
   goToRestaurants() {
     this.router.navigate(['/']);
   }
