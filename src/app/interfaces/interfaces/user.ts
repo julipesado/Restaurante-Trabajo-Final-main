@@ -6,5 +6,6 @@ export interface User {
     lastName: string,
     address: string,
     phoneNumber: string,
+    isFavorite: any;
 }
 export type NewUser = Omit<User, "id">;
