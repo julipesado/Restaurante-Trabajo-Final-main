@@ -21,7 +21,7 @@ export const routes: Routes = [
         canActivate: [onlyPublicUserGuard]
     },
     {
-        path: "restaurant/:id",
+        path: "restaurant/:idRestaurant",
         component: RestaurantPage,
         canActivate: [onlyPublicUserGuard]
     },

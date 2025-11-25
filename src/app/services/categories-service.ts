@@ -1,6 +1,7 @@
 import { inject, Injectable, OnInit, signal } from '@angular/core';
 import { AuthService } from './auth-service';
 import { Category, NewCategory } from '../interfaces/interfaces/categories';
+import { UserService } from './user-service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,11 @@ export class CategoriesService implements OnInit{
   authService = inject(AuthService);
   restaurantCategories: Category[] = [];
   userCategories: Category[] = []; 
+  userService = inject(UserService);
   selectedCategoryId = signal<number | null>(null);
 
-  async getCategoriesById(id: number | string) {
-    const res = await fetch("https://w370351.ferozo.com/api/Categories"  + id,
+  async getCategoriesById(restaurantId : number | string) {
+    const res = await fetch("https://w370351.ferozo.com/api/categories"  + restaurantId,
       {
         headers: {
           Authorization: "Bearer " + this.authService.token,
@@ -30,7 +32,7 @@ export class CategoriesService implements OnInit{
   }
 
   async createCategory(nuevaCategory: NewCategory) {
-    const res = await fetch("https://w370351.ferozo.com/api/Categories", {
+    const res = await fetch("https://w370351.ferozo.com/api/categories", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -45,7 +47,7 @@ export class CategoriesService implements OnInit{
   }
 
   async editCategory(categoriaEditada: Category) {
-    const res = await fetch("https://w370351.ferozo.com/api/Categories" + "/" + categoriaEditada.id, {
+    const res = await fetch("https://w370351.ferozo.com/api/categories" + "/" + categoriaEditada.id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -61,7 +63,7 @@ export class CategoriesService implements OnInit{
   }
   
   async deleteCategory(id: string | number) {
-    const res = await fetch("https://w370351.ferozo.com/api/Categories" + id, {
+    const res = await fetch("https://w370351.ferozo.com/api/categories" + id, {
       method: 'DELETE',
       headers: {
         Authorization: "Bearer " + this.authService.token
