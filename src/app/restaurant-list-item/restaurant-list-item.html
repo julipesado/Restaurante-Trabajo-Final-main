@@ -1,21 +1,7 @@
-<<<<<<< HEAD
 <a [routerLink]="['/restaurant', user().id]">
 <li 
   class="restaurant-item list-group-item d-flex justify-content-between align-items-center py-3"
   [class.is-favourite]="restaurantService.isFavoriteRestaurant(user().id)">
-=======
-
-<a [routerLink]="['/restaurant', user().id]">
-<li 
-  class="restaurant-item list-group-item d-flex justify-content-between align-items-center py-3"
-  [class.is-favorite]="restaurantService.isFavoriteRestaurant(user().id)">
-  
-<li 
-  class="restaurant-item list-group-item d-flex justify-content-between align-items-center py-3"
-  [class.is-favorite]="user().isFavorite === true"
->
-
->>>>>>> e22aaedf8011177c5d22f84fe73d6a883e9782d8
 
   <div class="d-flex flex-column">
       <span class="restaurant-name fw-bold text-dark text-decoration-none fs-5">

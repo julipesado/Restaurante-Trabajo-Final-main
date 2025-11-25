@@ -46,7 +46,7 @@
 
   <ul class="list-group">
     <div class="categories-nav">
-      @for (category of categoriesService.restaurantCategories ; track category.id) {
+      @for (category of categoriesService.userCategories ; track category.id) {
       <button class="category-filter" (click)="this.categoriesService.selectCategory(category.id)"
         [class.active]="selectedCategoryId() === category.id">
         {{ category.name }}

@@ -25,6 +25,7 @@ export class UserService {
   async getUsers() {
     const res = await fetch("https://w370351.ferozo.com/api/users",
       {
+        method: "GET", 
         headers: {
           Authorization: "Bearer " + this.authService.token,
         }
