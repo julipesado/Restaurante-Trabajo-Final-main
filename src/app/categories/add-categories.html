@@ -15,9 +15,9 @@
         </div>               
         
         @if (idCategory()) {
-            <button [disabled]="newCategoryForm.invalid || isLoading">Editar</button>
+            <button [disabled]="newCategoryForm.invalid || isLoading" routerLink="/admin">Editar</button>
         } @else {   
-            <button [disabled]="newCategoryForm.invalid || isLoading">Agregar</button>
+            <button [disabled]="newCategoryForm.invalid || isLoading" routerLink="/admin">Agregar</button>
         }
 
        <!--@if (isLoading) {

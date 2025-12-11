@@ -7,7 +7,37 @@
 
 <button (click)="logOut()"> Log out</button>
 <a [routerLink]="['/add-product']"> Agregar productos</a>
-<a [routerLink]="['/add-categories']">Agregar categorias</a>
+<div class="content-header">
+    <h2>Categorías</h2>
+    <button class="btn-body" routerLink="/add-categories">
+    Agregar categorias
+    </button>
+</div>
+
+    @if (categoriesService.categories().length === 0) {
+    <div class="empty-state">
+      <p>No hay categorías aún</p>
+      <p class="subtitle">Crea una categoría</p>
+    </div>
+    } @else {
+    <div class="items-list">
+      @for (category of categoriesService.categories(); track category.id) {
+      <div class="item-card">
+        <div class="item-info">
+          <h3>{{ category.name }}</h3>
+        </div>
+        <div class="item-actions">
+          <button class="btn btn-edit" [routerLink]="['category',category.id,'edit']">
+            Editar
+          </button>
+          <button class="btn btn-delete" (click)="deleteCategory()" >
+            Eliminar
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+    }
 <ul>
     @for (productoIndividual of productService.userProducts; track $index) {
         <app-product-list-item [product]="productoIndividual"></app-product-list-item>

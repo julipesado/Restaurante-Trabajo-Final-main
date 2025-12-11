@@ -46,7 +46,7 @@
 
   <ul class="list-group">
     <div class="categories-nav">
-      @for (category of categoriesService.userCategories ; track category.id) {
+      @for (category of categories() ; track category.id) {
       <button class="category-filter" (click)="this.categoriesService.selectCategory(category.id)"
         [class.active]="selectedCategoryId() === category.id">
         {{ category.name }}
@@ -63,6 +63,9 @@
           }
           @if (product.hasHappyHour) {
           <span class="badge bg-success"> Happy Hour </span>
+          }
+          @if (product.featured) {
+            <span class="badge bg-success"> Producto destacado! </span>
           }
         </div>
       </div>

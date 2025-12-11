@@ -26,7 +26,7 @@ export class RestaurantPage implements OnInit {
   // Inputs y datos
   idRestaurant = input.required<number>();
   user: User | undefined = undefined;
-  categories = this.categoriesService.restaurantCategories
+  categories = this.categoriesService.categories
   selectedCategoryId = signal<number | null>(null);
 
   async ngOnInit(){
@@ -37,11 +37,11 @@ export class RestaurantPage implements OnInit {
         this.user = await this.userService.getUserById(restaurantId);
       }
       await this.productsService.getRestaurantProducts(restaurantId);
-      await this.categoriesService.getCategoriesById(restaurantId);
+      await this.categoriesService.getCategoriesByRestaurant(restaurantId);
       
       // Seleccionar primera categoría por defecto
       if (this.categories.length > 0) {
-        this.selectedCategoryId.set(this.categories[0].id);
+        this.selectedCategoryId.set(this.categories()[0].id);
       }
     }
   }
