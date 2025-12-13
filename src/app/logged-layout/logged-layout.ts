@@ -44,6 +44,15 @@ export class LoggedLayout implements OnInit {
   deleteCategory(){
     this.categoriesService.deleteCategory
   }
+  addProduct(){
+    this.productService.createProduct
+  }
+  deleteProduct(){
+    this.productService.deleteProduct
+  }
+  editProduct(){
+    this.productService.editProduct
+  }
   
   logOut(){
     this.authService.logout()

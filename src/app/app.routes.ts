@@ -41,7 +41,17 @@ export const routes: Routes = [
         canActivate: [onlyLoggedUserGuard]
     },
     {
+        path: "product/:idProduct/edit",
+        component: AddProducts,
+        canActivate: [onlyLoggedUserGuard]
+    },
+    {
         path: "add-categories",
+        component: AddCategories,
+        canActivate: [onlyLoggedUserGuard]
+    },
+    {
+        path: "category/:idCategory/edit",
         component: AddCategories,
         canActivate: [onlyLoggedUserGuard]
     }

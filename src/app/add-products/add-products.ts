@@ -23,10 +23,17 @@ export class AddProducts implements OnInit {
   isLoading = false; 
   product: Product | undefined;
   categoriesService = inject (CategoriesService)
-  categories: Category[] = []
+  categories: Category[] = [];
+  restaurantId : number | null = null; 
+
 
 
   async ngOnInit() {
+  const id = this.authService.getUserId();
+  if (id) {
+    this.restaurantId = id;
+    this.categories = await this.categoriesService.getCategoriesByRestaurant(this.restaurantId);
+  }
     if (this.idProducto()) {
       this.productoOriginal = await this.productService.getRestaurantProducts(this.idProducto()!) //* el ! dsp de la variable significa que esta revisado de que no es undefined 
       this.form()?.setValue({

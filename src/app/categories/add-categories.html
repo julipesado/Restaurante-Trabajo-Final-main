@@ -12,12 +12,11 @@
             @if (name.dirty && name.invalid) {
                 <p class="error">El nombre es obligatorio y no puede ser una sola letra</p>
             }
-        </div>               
-        
+    </div>               
         @if (idCategory()) {
-            <button [disabled]="newCategoryForm.invalid || isLoading" routerLink="/admin">Editar</button>
+            <button [disabled]="newCategoryForm.invalid || isLoading">Editar</button>
         } @else {   
-            <button [disabled]="newCategoryForm.invalid || isLoading" routerLink="/admin">Agregar</button>
+            <button [disabled]="newCategoryForm.invalid || isLoading" >Agregar</button>
         }
 
        <!--@if (isLoading) {

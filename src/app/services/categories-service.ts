@@ -11,23 +11,22 @@ export class CategoriesService implements OnInit{
 
   }
   authService = inject(AuthService);
-  categories =  signal<Category[]>([]);
+  categories:  Category[] = [];
   userService = inject(UserService);
-  selectedCategoryId = signal<number | null>(null);
+  selectedCategoryId : number | null = null;
 
   async getCategoriesByRestaurant(restaurantId : number) {
-    const res = await fetch("https://w370351.ferozo.com/api/categories"  + restaurantId,
+    const res = await fetch("https://w370351.ferozo.com/api/users/" + restaurantId + "/categories", 
       {
         headers: {
           Authorization: "Bearer " + this.authService.token,
         },
       })
     if (!res.ok) {
-      this.categories.set([]);
-      return; 
+      return []; 
     }
     const categoriesData = (await res.json()) as Category[];
-    this.categories.set(categoriesData);
+    return categoriesData;
   }
 
   async createCategory(nuevaCategory: NewCategory) {
@@ -41,12 +40,12 @@ export class CategoriesService implements OnInit{
     });
     if (!res.ok) return undefined;
     const newCategory = (await res.json()) as Category;
-    this.categories.update(current => [...current, newCategory]);
+    this.categories.push(newCategory);
     return newCategory;
   }
 
-  async editCategory(categoriaEditada: UpdateCategoryRequestDto, id:number) {
-    const res = await fetch("https://w370351.ferozo.com/api/categories" + id, {
+  async editCategory(categoriaEditada: Category) {
+    const res = await fetch("https://w370351.ferozo.com/api/categories/" + categoriaEditada.id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -54,33 +53,30 @@ export class CategoriesService implements OnInit{
       },
       body: JSON.stringify(categoriaEditada)
     });
-     if (!res.ok) return undefined;
-    const editedCategory = (await res.json()) as Category;
-
-    this.categories.update(currentCategories =>
-      currentCategories.map(cat =>
-        cat.id === id ? editedCategory : cat
-      )
-    );
-      return editedCategory;
+     if (!res.ok) return;
+    this.categories === this.categories.map(category => {
+      if (category.id === categoriaEditada.id) return categoriaEditada;
+      return category 
+    })
+    return categoriaEditada;
   }
   
   async deleteCategory(id: string | number) {
-    const res = await fetch("https://w370351.ferozo.com/api/categories" + id, {
+    const res = await fetch("https://w370351.ferozo.com/api/categories/" + id, {
       method: 'DELETE',
       headers: {
         Authorization: "Bearer " + this.authService.token
       }
     });
-    if (!res.ok) return false;
-    this.categories.update(currentCategories =>
-      currentCategories.filter(cat => cat.id !== id)
-    )
-      return true; 
+    if (!res.ok) return;
+    if (res.ok) {
+      this.categories = this.categories.filter(category => category.id !== id)
+    }
+    return true 
     }
 
   selectCategory(categoryId: number) {
-    this.selectedCategoryId.set(categoryId);
+    this.selectedCategoryId = categoryId;
   }
 
 }

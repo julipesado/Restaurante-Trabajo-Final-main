@@ -7,7 +7,7 @@ import { CategoriesService } from '../services/categories-service';
 
 @Component({
   selector: 'app-add-categories',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule],
   templateUrl: 'add-categories.html',
 })
 export class AddCategories implements OnInit{
@@ -22,30 +22,24 @@ export class AddCategories implements OnInit{
 
 async ngOnInit() {
     if (this.idCategory()) {
-      const categorias = this.categoryService.categories();
+      const categorias = this.categoryService.categories;
       this.categoryOriginal = categorias.find(categories => categories.id == this.idCategory()) //* el ! dsp de la variable significa que esta revisado de que no es undefined 
-      this.form()?.setValue({
-        name: this.categoryOriginal!.name,
-        id: this.categoryOriginal!.id
-      })
-    }
-}  
-  async handleFormSubmission(form: NgForm){
-    const nuevaCategory: NewCategory = {
-      name: form.value.name,
-      restaurantId:  this.authService.getUserId(),
-    }
-
+    setTimeout(() => {
+        if (this.form()) {
+            this.form()?.setValue({
+              name: this.categoryOriginal!.name
+          });
+        }
+    });
+  } 
+}
+  async handleFormSubmission(newCategory: NewCategory){
     let res;
     this.isLoading = true;
-
-    if (this.idCategory()) {
-      const updateData: UpdateCategoryRequestDto = {
-      name: nuevaCategory.name
-    }
-      res = await this.categoryService.editCategory( updateData, this.idCategory()!);
+    if (this.idCategory()){
+      res = await this.categoryService.editCategory({...newCategory, id: this.idCategory()!});
     } else {
-      res = await this.categoryService.createCategory(nuevaCategory);
+      res = await this.categoryService.createCategory(newCategory);
     }
 
     this.isLoading = false;
