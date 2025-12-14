@@ -8,6 +8,7 @@ import { onlyLoggedUserGuard } from './guards/only-logged-user-guard';
 import { RestaurantPage } from './restaurant-page/restaurant-page';
 import { AddProducts } from './add-products/add-products';
 import { AddCategories } from './categories/add-categories';
+import { MenuPage } from './menu-page/menu-page';
 
 export const routes: Routes = [
     {
@@ -54,5 +55,9 @@ export const routes: Routes = [
         path: "category/:idCategory/edit",
         component: AddCategories,
         canActivate: [onlyLoggedUserGuard]
+    },
+    {
+        path: "menu/:idProduct",
+        component: MenuPage
     }
 ];

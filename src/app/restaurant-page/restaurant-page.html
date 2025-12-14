@@ -53,10 +53,10 @@
       </button>
       }
     </div>
-    @for (product of productsService.restaurantProducts; track product.id) {
+    @for (product of productsService.restaurantProducts; track product.id){
     <li class="list-group-item py-3">
       <div class="d-flex align-items-center justify-content-between">
-        <strong class="fs-5"> {{ product.name }} </strong>
+        <a [routerLink]="['/menu', product.id]"> <strong class="fs-5"> {{ product.name }} </strong> </a>
         <div>
           @if (product.discount > 0) {
           <span class="badge bg-danger me-2"> {{ product.discount }}% OFF </span>
