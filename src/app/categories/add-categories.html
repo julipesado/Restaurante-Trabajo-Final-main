@@ -1,27 +1,50 @@
-<div class="general-container">
-    @if (idCategory()) {
-        <h2>Editar Categoría</h2>
-    }
-    @else {
-        <h2>Nueva Categoría</h2>
-    }
-    <div class="form-section">
-        <form (ngSubmit)="handleFormSubmission(newCategoryForm.value)" #newCategoryForm="ngForm">
-        <div class="form-group">        
-            <input id="name" type="text" name="name" placeholder="Nombre de la categoría" ngModel #name="ngModel" required="true">
-            @if (name.dirty && name.invalid) {
-                <p class="error">El nombre es obligatorio y no puede ser una sola letra</p>
-            }
-    </div>               
-        @if (idCategory()) {
-            <button [disabled]="newCategoryForm.invalid || isLoading">Editar</button>
-        } @else {   
-            <button [disabled]="newCategoryForm.invalid || isLoading" >Agregar</button>
-        }
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
 
-       <!--@if (isLoading) {
-         <app-spinner></app-spinner>
-        } --> 
-        </form>
+      <div class="card shadow-sm">
+        <div class="card-body">
+
+          <h3 class="mb-4 text-center">
+            @if (idCategory()) { Editar categoría } @else { Nueva categoría }
+          </h3>
+
+          <form
+            (ngSubmit)="handleFormSubmission(newCategoryForm.value)"
+            #newCategoryForm="ngForm"
+          >
+
+            <div class="mb-3">
+              <label class="form-label">Nombre de la categoría</label>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                ngModel
+                required
+                minlength="2"
+                #name="ngModel"
+              >
+
+              @if (name.dirty && name.invalid) {
+                <div class="text-danger small mt-1">
+                  El nombre es obligatorio y debe tener al menos 2 caracteres
+                </div>
+              }
+            </div>
+
+            <button
+              class="btn btn-primary w-100"
+              [disabled]="newCategoryForm.invalid || isLoading"
+            >
+              @if (idCategory()) { Guardar cambios } @else { Crear categoría }
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+
     </div>
+  </div>
 </div>

@@ -1,94 +1,93 @@
 <div class="container py-4">
 
-<<<<<<< HEAD
   
-  <div class="card mb-4 shadow-sm">
+  <div class="card shadow-sm mb-4">
     <div class="card-body">
+      <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
 
-      <h2 class="card-title mb-3">{{ me?.restaurantName }}</h2>
+        <div>
+          <h3 class="mb-3">{{ me?.restaurantName }}</h3>
 
-      <p class="mb-1"><strong>ID:</strong> {{ me?.id }}</p>
-      <p class="mb-1"><strong>Teléfono:</strong> {{ me?.phoneNumber }}</p>
-      <p class="mb-1"><strong>Dueño:</strong> {{ me?.firstName }} {{ me?.lastName }}</p>
-      <p class="mb-3"><strong>Dirección:</strong> {{ me?.address }}</p>
+          <p class="mb-1"><strong>ID:</strong> {{ me?.id }}</p>
+          <p class="mb-1"><strong>Teléfono:</strong> {{ me?.phoneNumber }}</p>
+          <p class="mb-1"><strong>Dueño:</strong> {{ me?.firstName }} {{ me?.lastName }}</p>
+          <p class="mb-0"><strong>Dirección:</strong> {{ me?.address }}</p>
+        </div>
 
-      <div class="d-flex gap-2 mt-3">
-        <button class="btn btn-outline-danger" (click)="logOut()">Log out</button>
+        <div class="d-flex flex-column gap-2">
+          <button class="btn btn-outline-danger" (click)="logOut()">Log out</button>
 
-        <a [routerLink]="['/add-product']" 
-           class="btn btn-primary">
-          Agregar productos
-        </a>
+          <a routerLink="/add-product" class="btn btn-primary">
+            + Agregar producto
+          </a>
 
-        <a [routerLink]="['/add-categories']" 
-           class="btn btn-secondary">
-          Agregar categorías
-        </a>
-      </div>
+          <a routerLink="/add-categories" class="btn btn-secondary">
+            + Agregar categoría
+          </a>
+        </div>
 
-    </div>
-  </div>
-
-  
-  <h4 class="mb-3">Tus productos</h4>
-
-  <ul class="list-group">
-    @for (productoIndividual of productService.userProducts; track $index) {
-      <li class="list-group-item p-0 border-0">
-        <app-product-list-item [product]="productoIndividual">
-        </app-product-list-item>
-      </li>
-    }
-  </ul>
-
-</div>
-
-=======
-<button (click)="logOut()"> Log out</button>
-
-@if (productService.restaurantProducts.length === 0) {
-<div class="empty-state">
-  <p>No hay productos aún</p>
-  <p class="subtitle">Crea un producto para que aparezca en tu menú</p>
-</div>
-} @else {
-  <ul>
-    @for (productoIndividual of productService.userProducts; track $index) {
-    <app-product-list-item [product]="productoIndividual"></app-product-list-item>
-    }
-  </ul>
-}
-
-  <a [routerLink]="['/add-product']"> Agregar productos</a>
-  <div class="content-header">
-    <h2>Categorías</h2>
-    <button class="btn-body" routerLink="/add-categories">
-      Agregar categorias
-    </button>
-  </div>
-
-  @if (categoriesService.categories.length === 0) {
-  <div class="empty-state">
-    <p>No hay categorías aún</p>
-    <p class="subtitle">Crea una categoría</p>
-  </div>
-  } @else {
-  <div class="items-list">
-    @for (category of categoriesService.categories; track category.id) {
-    <div class="item-card">
-      <div class="item-info">
-        <h3>{{ category.name }}</h3>
-      </div>
-      <div class="item-actions">
-        <button class="btn btn-edit" [routerLink]="['/category',category.id, 'edit']">
-          Editar
-        </button>
-        <button class="btn btn-delete" (click)="categoriesService.deleteCategory(category.id)">
-          Eliminar
-        </button>
       </div>
     </div>
+  </div>
+
+
+  <div class="mb-5">
+    <h4 class="mb-3">Tus productos</h4>
+
+    @if (productService.restaurantProducts.length === 0) {
+      <div class="alert alert-light text-center">
+        <p class="mb-1 fw-bold">No hay productos aún</p>
+        <p class="mb-0 text-muted">Crea un producto para que aparezca en tu menú</p>
+      </div>
+    } @else {
+      <ul class="list-group">
+        @for (producto of productService.userProducts; track $index) {
+          <li class="list-group-item">
+            <app-product-list-item [product]="producto"></app-product-list-item>
+          </li>
+        }
+      </ul>
     }
   </div>
-  }
->>>>>>> 4986df20a1d0084dc445dce8d16d9fba34bcd130
+
+ 
+  <div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0">Categorías</h4>
+      <a routerLink="/add-categories" class="btn btn-outline-primary btn-sm">
+        + Agregar categoría
+      </a>
+    </div>
+
+    @if (categoriesService.categories.length === 0) {
+      <div class="alert alert-light text-center">
+        <p class="mb-1 fw-bold">No hay categorías aún</p>
+        <p class="mb-0 text-muted">Crea una categoría</p>
+      </div>
+    } @else {
+      <div class="list-group">
+        @for (category of categoriesService.categories; track category.id) {
+          <div class="list-group-item d-flex justify-content-between align-items-center">
+            <span class="fw-semibold">{{ category.name }}</span>
+
+            <div class="btn-group">
+              <a
+                class="btn btn-sm btn-outline-secondary"
+                [routerLink]="['/category', category.id, 'edit']"
+              >
+                Editar
+              </a>
+              <button
+                class="btn btn-sm btn-outline-danger"
+                (click)="categoriesService.deleteCategory(category.id)"
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+</div>
