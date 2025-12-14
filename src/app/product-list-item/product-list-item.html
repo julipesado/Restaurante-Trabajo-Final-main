@@ -1,13 +1,16 @@
 <li>
-    <span>{{product().name}}</span>
-    <span class="productData">{{product().price}}</span>
-    <span class="productData">{{product().description}}</span>
-    <span class="productData">{{product().discount}}</span>
-    @if (product().hasHappyHour) {
+    @for (product of productService.userProducts; track product.id) {
+    <span>{{product.name}}</span>
+    <span class="productData">{{product.price}}</span>
+    <span class="productData">{{product.description}}</span>
+    <span class="productData">{{product.discount}}</span>
+    @if (product.hasHappyHour) {
         <p> Happy Hour! 🥳</p>
     }
     <span class="acciones">
         <button class="botonBorrar" (click)="deleteProduct()">Borrar</button>
-        <a class="botonEdit" [routerLink]="['/add-product']">Editar</a>
+        <a class="botonEdit" [routerLink]="['/product',product.id, 'edit']">Editar</a>
     </span>
+}
 </li>
+    

@@ -25,7 +25,6 @@ export class LoggedLayout implements OnInit {
   me: User | undefined;
   error = false;
 
-
   ngOnInit(): void {
     this.productService.getProductsMe();
     const restaurantName = this.authService.getRestaurantName();
@@ -36,8 +35,26 @@ export class LoggedLayout implements OnInit {
         this.me = user;
       })
   }
+  addCategory(){
+    this.categoriesService.createCategory
+  }
+  editCategory(){
+    this.categoriesService.editCategory
+  }
+  deleteCategory(){
+    this.categoriesService.deleteCategory
+  }
+  addProduct(){
+    this.productService.createProduct
+  }
+  deleteProduct(){
+    this.productService.deleteProduct
+  }
+  editProduct(){
+    this.productService.editProduct
+  }
+  
   logOut(){
     this.authService.logout()
   }
-
 }

@@ -1,5 +1,6 @@
 <div class="container py-4">
 
+<<<<<<< HEAD
   
   <div class="card mb-4 shadow-sm">
     <div class="card-body">
@@ -42,3 +43,52 @@
 
 </div>
 
+=======
+<button (click)="logOut()"> Log out</button>
+
+@if (productService.restaurantProducts.length === 0) {
+<div class="empty-state">
+  <p>No hay productos aún</p>
+  <p class="subtitle">Crea un producto para que aparezca en tu menú</p>
+</div>
+} @else {
+  <ul>
+    @for (productoIndividual of productService.userProducts; track $index) {
+    <app-product-list-item [product]="productoIndividual"></app-product-list-item>
+    }
+  </ul>
+}
+
+  <a [routerLink]="['/add-product']"> Agregar productos</a>
+  <div class="content-header">
+    <h2>Categorías</h2>
+    <button class="btn-body" routerLink="/add-categories">
+      Agregar categorias
+    </button>
+  </div>
+
+  @if (categoriesService.categories.length === 0) {
+  <div class="empty-state">
+    <p>No hay categorías aún</p>
+    <p class="subtitle">Crea una categoría</p>
+  </div>
+  } @else {
+  <div class="items-list">
+    @for (category of categoriesService.categories; track category.id) {
+    <div class="item-card">
+      <div class="item-info">
+        <h3>{{ category.name }}</h3>
+      </div>
+      <div class="item-actions">
+        <button class="btn btn-edit" [routerLink]="['/category',category.id, 'edit']">
+          Editar
+        </button>
+        <button class="btn btn-delete" (click)="categoriesService.deleteCategory(category.id)">
+          Eliminar
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+  }
+>>>>>>> 4986df20a1d0084dc445dce8d16d9fba34bcd130
