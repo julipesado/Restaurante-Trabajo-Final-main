@@ -1,10 +1,49 @@
-{{ me?.restaurantName }}
-{{ me?.id }}
-{{ me?.phoneNumber }}
-{{ me?.lastName }}
-{{ me?.firstName }}
-{{ me?.address }}
+<div class="container py-4">
 
+<<<<<<< HEAD
+  
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+
+      <h2 class="card-title mb-3">{{ me?.restaurantName }}</h2>
+
+      <p class="mb-1"><strong>ID:</strong> {{ me?.id }}</p>
+      <p class="mb-1"><strong>Teléfono:</strong> {{ me?.phoneNumber }}</p>
+      <p class="mb-1"><strong>Dueño:</strong> {{ me?.firstName }} {{ me?.lastName }}</p>
+      <p class="mb-3"><strong>Dirección:</strong> {{ me?.address }}</p>
+
+      <div class="d-flex gap-2 mt-3">
+        <button class="btn btn-outline-danger" (click)="logOut()">Log out</button>
+
+        <a [routerLink]="['/add-product']" 
+           class="btn btn-primary">
+          Agregar productos
+        </a>
+
+        <a [routerLink]="['/add-categories']" 
+           class="btn btn-secondary">
+          Agregar categorías
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  
+  <h4 class="mb-3">Tus productos</h4>
+
+  <ul class="list-group">
+    @for (productoIndividual of productService.userProducts; track $index) {
+      <li class="list-group-item p-0 border-0">
+        <app-product-list-item [product]="productoIndividual">
+        </app-product-list-item>
+      </li>
+    }
+  </ul>
+
+</div>
+
+=======
 <button (click)="logOut()"> Log out</button>
 
 @if (productService.restaurantProducts.length === 0) {
@@ -52,3 +91,4 @@
     }
   </div>
   }
+>>>>>>> 4986df20a1d0084dc445dce8d16d9fba34bcd130
