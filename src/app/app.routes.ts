@@ -28,6 +28,11 @@ export const routes: Routes = [
         canActivate: [onlyPublicUserGuard]
     },
     {
+        path: "restaurant-page",
+        component: RestaurantPage,
+        canActivate: [onlyPublicUserGuard]
+    },
+    {
         path: "register",
         component: RegisterPage,
         canActivate: [onlyPublicUserGuard]
