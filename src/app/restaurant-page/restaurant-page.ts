@@ -59,11 +59,4 @@ export class RestaurantPage implements OnInit {
   goToRestaurants() {
     this.router.navigate(['/']);
   }
-  getFinalPrice(product: Product): number {
-    if (!product.discount || product.discount === 0) {
-      return product.price;
-    }
-    return product.price - (product.price * (product.discount / 100));
-  }
-
 }

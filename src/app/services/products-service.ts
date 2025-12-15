@@ -36,8 +36,8 @@ export class ProductsService implements OnInit {
         }
       }
     )
-    const resJson: Product[] = await res.json()
-    return resJson;
+    this.userProducts = await res.json();
+    return this.userProducts;
   }
   async getRestaurantProducts(restaurantId: number | string) {
     const res = await fetch("https://w370351.ferozo.com/api/users/" + restaurantId + "/products",
@@ -52,15 +52,14 @@ export class ProductsService implements OnInit {
     return this.restaurantProducts = await res.json();
   }
 
-  async getProductsByUserId(id: number | undefined) {
-    const res = await fetch('https://w370351.ferozo.com/api/products/' + this.authService.getUserId());
+  async getProduct(id: number) {
+    const res = await fetch('https://w370351.ferozo.com/api/products/' + id);
     if (!res.ok) return undefined;
     return await res.json();
-
   }
 
   async editProduct(productoEditado: Product) {
-    const res = await fetch("https://w370351.ferozo.com/api/products/" + "/" + productoEditado.id, {
+    const res = await fetch("https://w370351.ferozo.com/api/products/" + productoEditado.id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

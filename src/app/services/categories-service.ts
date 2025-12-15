@@ -25,8 +25,8 @@ export class CategoriesService implements OnInit{
     if (!res.ok) {
       return []; 
     }
-    const categoriesData = (await res.json()) as Category[];
-    return categoriesData;
+    this.categories = await res.json();
+    return this.categories;
   }
 
   async createCategory(nuevaCategory: NewCategory) {

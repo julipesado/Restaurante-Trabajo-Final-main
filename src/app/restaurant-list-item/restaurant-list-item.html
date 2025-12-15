@@ -1,40 +1,25 @@
-
 <a [routerLink]="['/restaurant', user().id]">
-<li 
-  class="restaurant-item list-group-item d-flex justify-content-between align-items-center py-3"
-  [class.is-favourite]="restaurantService.isFavoriteRestaurant(user().id)">
+  <li class="restaurant-item list-group-item d-flex justify-content-between align-items-center py-3"
+    [class.is-favourite]="restaurantService.isFavoriteRestaurant(user().id)">
 
-
-<a [routerLink]="['/restaurant', user().id]">
-<li 
-  class="restaurant-item list-group-item d-flex justify-content-between align-items-center py-3"
-  [class.is-favorite]="restaurantService.isFavoriteRestaurant(user().id)">
-
-<li 
-  class="restaurant-item list-group-item d-flex justify-content-between align-items-center py-3"
-  [class.is-favorite]="user().isFavorite === true"
->
-
-
-
-  <div class="d-flex flex-column">
+    <div class="d-flex flex-column">
       <span class="restaurant-name fw-bold text-dark text-decoration-none fs-5">
         {{ user().restaurantName }}
       </span>
-    <span class="restaurant-phone text-muted mt-1">
-      📞 {{ user().phoneNumber }}
-    </span>
-    <span class="restaurant-address text-muted mt-1"> 
-      📍{{user().address}}
-    </span>
-  </div>
+      <span class="restaurant-phone text-muted mt-1">
+        📞 {{ user().phoneNumber }}
+      </span>
+      <span class="restaurant-address text-muted mt-1">
+        📍{{user().address}}
+      </span>
+    </div>
 
-  <div>
+    <div>
       @if (restaurantService.isFavoriteRestaurant(user().id)) {
-        <span class="badge bg-warning text-dark fs-6">⭐</span>
+      <span class="badge bg-warning text-dark fs-6">⭐</span>
       }
-  </div>
+    </div>
 
-</li>
+  </li>
 
 </a>

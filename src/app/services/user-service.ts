@@ -2,12 +2,14 @@ import { Injectable, inject } from "@angular/core";
 import { NewUser } from "../interfaces/interfaces/user";
 import { User } from "../interfaces/interfaces/user";
 import { AuthService } from "./auth-service";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
 })
 export class UserService {
-  authService = inject(AuthService)
+  authService = inject(AuthService);
+  router = inject(Router);
   aleatorio = Math.random()
 
   users: User[] = [];
@@ -72,7 +74,7 @@ export class UserService {
     return resJson
   }
   async editUser(usuarioEditado: User) {
-    const res = await fetch("https://w370351.ferozo.com/api/users/" + "/" + usuarioEditado.id, {
+    const res = await fetch("https://w370351.ferozo.com/api/users/" + usuarioEditado.id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -96,10 +98,9 @@ export class UserService {
       }
     });
     if (!res.ok) return;
-    //if (res.ok) {
-    this.users = this.users.filter(user => user.id !== id)
-    return true;
-    //}
+    this.users = this.users.filter(user => user.id !== id);
+    this.authService.logout();
+    this.router.navigate(["/login"]);
   }
   
 }

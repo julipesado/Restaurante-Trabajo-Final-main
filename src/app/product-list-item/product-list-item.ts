@@ -2,6 +2,7 @@ import { Component, inject, input } from '@angular/core';
 import { Product } from '../interfaces/interfaces/product';
 import { ProductsService } from '../services/products-service';
 import { Router, RouterModule, RouterLink } from '@angular/router';
+import { Category } from '../interfaces/interfaces/categories';
 
 @Component({
   selector: 'app-product-list-item',
@@ -11,6 +12,7 @@ import { Router, RouterModule, RouterLink } from '@angular/router';
 })
 export class ProductListItem {
   product = input.required<Product>()
+  category = input.required<Category>()
   productService = inject(ProductsService)
   router = inject(Router)
 

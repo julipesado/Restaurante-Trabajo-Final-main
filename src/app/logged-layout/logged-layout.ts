@@ -26,6 +26,7 @@ export class LoggedLayout implements OnInit {
   error = false;
 
   ngOnInit(): void {
+    this.categoriesService.getCategoriesByRestaurant(this.authService.getUserId());
     this.productService.getProductsMe();
     const restaurantName = this.authService.getRestaurantName();
     if (restaurantName === null)
@@ -34,6 +35,9 @@ export class LoggedLayout implements OnInit {
       this.userService.getUserByRestaurantName(restaurantName).then(user => {
         this.me = user;
       })
+  }
+  categoryOf(product: Product) {
+    return this.categoriesService.categories.find(c => c.id === product.categoryId)!;
   }
   addCategory(){
     this.categoriesService.createCategory

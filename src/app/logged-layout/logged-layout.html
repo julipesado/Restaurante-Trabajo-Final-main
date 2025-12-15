@@ -1,6 +1,6 @@
 <div class="container py-4">
 
-  
+
   <div class="card shadow-sm mb-4">
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
@@ -30,27 +30,6 @@
     </div>
   </div>
 
-
-  <div class="mb-5">
-    <h4 class="mb-3">Tus productos</h4>
-
-    @if (productService.restaurantProducts.length === 0) {
-      <div class="alert alert-light text-center">
-        <p class="mb-1 fw-bold">No hay productos aún</p>
-        <p class="mb-0 text-muted">Crea un producto para que aparezca en tu menú</p>
-      </div>
-    } @else {
-      <ul class="list-group">
-        @for (producto of productService.userProducts; track $index) {
-          <li class="list-group-item">
-            <app-product-list-item [product]="producto"></app-product-list-item>
-          </li>
-        }
-      </ul>
-    }
-  </div>
-
- 
   <div>
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h4 class="mb-0">Categorías</h4>
@@ -60,33 +39,48 @@
     </div>
 
     @if (categoriesService.categories.length === 0) {
-      <div class="alert alert-light text-center">
-        <p class="mb-1 fw-bold">No hay categorías aún</p>
-        <p class="mb-0 text-muted">Crea una categoría</p>
-      </div>
+    <div class="alert alert-light text-center">
+      <p class="mb-1 fw-bold">No hay categorías aún</p>
+      <p class="mb-0 text-muted">Crea una categoría</p>
+    </div>
     } @else {
-      <div class="list-group">
-        @for (category of categoriesService.categories; track category.id) {
-          <div class="list-group-item d-flex justify-content-between align-items-center">
-            <span class="fw-semibold">{{ category.name }}</span>
+    <div class="list-group">
+      @for (category of categoriesService.categories; track category.id) {
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        <span class="fw-semibold">{{ category.name }}</span>
 
-            <div class="btn-group">
-              <a
-                class="btn btn-sm btn-outline-secondary"
-                [routerLink]="['/category', category.id, 'edit']"
-              >
-                Editar
-              </a>
-              <button
-                class="btn btn-sm btn-outline-danger"
-                (click)="categoriesService.deleteCategory(category.id)"
-              >
-                Eliminar
-              </button>
-            </div>
+        <div class="btn-group">
+          <a class="btn btn-sm btn-outline-secondary" [routerLink]="['/category', category.id, 'edit']">
+            Editar
+          </a>
+          <button class="btn btn-sm btn-outline-danger" (click)="categoriesService.deleteCategory(category.id)">
+            Eliminar
+          </button>
+        </div>
+
+        <div class="mb-5">
+          @if (productService.restaurantProducts.length === 0) {
+          <div class="alert alert-light text-center">
+            <p class="mb-1 fw-bold">No hay productos aún</p>
+            <p class="mb-0 text-muted">Crea un producto para que aparezca en tu menú</p>
           </div>
-        }
+          } @else {
+          <ul class="list-group">
+            @for (producto of productService.userProducts; track $index) {
+              @if (producto.categoryId === category.id) {
+                <li class="list-group-item">
+                  <app-product-list-item [product]="producto" [category]="categoryOf(producto)"></app-product-list-item>
+                </li>
+              }
+            }
+          </ul>
+          }
+        </div>
+
+
       </div>
+      }
+    </div>
     }
   </div>
 
