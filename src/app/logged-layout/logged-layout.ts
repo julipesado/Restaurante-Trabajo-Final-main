@@ -24,6 +24,7 @@ export class LoggedLayout implements OnInit {
   categoriesService= inject (CategoriesService);
   me: User | undefined;
   error = false;
+  userId= this.userService.getUserById;
 
   ngOnInit(): void {
     this.categoriesService.getCategoriesByRestaurant(this.authService.getUserId());

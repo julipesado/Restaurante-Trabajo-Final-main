@@ -9,6 +9,7 @@ import { RestaurantPage } from './restaurant-page/restaurant-page';
 import { AddProducts } from './add-products/add-products';
 import { AddCategories } from './categories/add-categories';
 import { ProductPage } from './product-page/product-page';
+import { EditUserPage } from './edit-user-page/edit-user-page';
 
 export const routes: Routes = [
     {
@@ -59,5 +60,15 @@ export const routes: Routes = [
     {
         path: "product/:idProduct",
         component: ProductPage
+    },
+    {
+        path: "edit-user/:idUser/edit",
+        component: EditUserPage,
+        canActivate: [onlyLoggedUserGuard]
+    },
+    {
+        path: "edit-user",
+        component: EditUserPage,
+        canActivate: [onlyLoggedUserGuard]
     }
 ];
