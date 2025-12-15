@@ -90,11 +90,12 @@ export class UserService {
     return usuarioEditado;
   }
 
-  async deleteUser(id: number | string) {
+  async deleteMyself() {
+    const id = this.authService.getUserId();
     const res = await fetch("https://w370351.ferozo.com/api/users/" + id, {
       method: "DELETE",
       headers: {
-        " Authorization": "Bearer " + this.authService.token
+        Authorization: "Bearer " + this.authService.token
       }
     });
     if (!res.ok) return;

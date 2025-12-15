@@ -61,4 +61,10 @@ export class LoggedLayout implements OnInit {
   logOut(){
     this.authService.logout()
   }
+  deleteAccount(){
+    this.userService.deleteMyself()
+  }
+  editAccount(){
+    this.userService.editUser
+  }
 }
