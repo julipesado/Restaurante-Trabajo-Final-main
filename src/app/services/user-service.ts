@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { NewUser } from "../interfaces/interfaces/user";
+import { NewUser, UpdateUser } from "../interfaces/interfaces/user";
 import { User } from "../interfaces/interfaces/user";
 import { AuthService } from "./auth-service";
 import { Router } from "@angular/router";
@@ -13,6 +13,7 @@ export class UserService {
   aleatorio = Math.random()
 
   users: User[] = [];
+  user: UpdateUser[] = [];
 
   async register(registerData: NewUser) {
     return await fetch("https://w370351.ferozo.com/api/users", {
@@ -73,21 +74,23 @@ export class UserService {
     this.users.push(resJson);
     return resJson
   }
-  async editUser(usuarioEditado: User) {
-    const res = await fetch("https://w370351.ferozo.com/api/users/" + usuarioEditado.id, {
-      method: "PUT",
+ async editUser(userEditado: UpdateUser) {
+    const res = await fetch("https://w370351.ferozo.com/api/users/" + userEditado.id, {
+      method: 'PUT',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + this.authService.token,
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.authService.token}`,
       },
-      body: JSON.stringify(usuarioEditado),
+      body: JSON.stringify(userEditado)
     });
     if (!res.ok) return;
-    this.users = this.users.map(user => {
-      if (user.id === usuarioEditado.id) return usuarioEditado;
-      return user
-    })
-    return usuarioEditado;
+    this.user = this.users.map(user => {
+      if (user.id === userEditado.id) {
+        return userEditado;
+      };
+      return user;
+    });
+    return userEditado;
   }
 
   async deleteMyself() {
