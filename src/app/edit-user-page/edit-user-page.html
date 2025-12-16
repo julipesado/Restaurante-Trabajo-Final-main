@@ -3,7 +3,7 @@
 
 
     <div class="card">
-        <form (ngSubmit)="handleFormSubmission(editUserForm.value)" #editUserForm="ngForm">
+        <form (ngSubmit)="handleFormSubmission(editUserForm)" #editUserForm="ngForm">
             <div>
                 <label for="restaurantName">Nombre de restaurante</label>
                 <input id="restaurantName" name="restaurantName" type="text" ngModel="{{usuarioOriginal?.restaurantName}}"

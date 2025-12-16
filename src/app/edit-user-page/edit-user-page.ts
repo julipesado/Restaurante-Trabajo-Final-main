@@ -16,16 +16,16 @@ export class EditUserPage {
   userService = inject(UserService);
   router = inject(Router);
   idUsuario = input<number>();
-  usuarioOriginal: User | undefined = undefined;
   form = viewChild<NgForm>('editUserForm');
   isLoading = false; 
   user: User | undefined; 
   errorBack = false;
   success = false;
   error: string | null = null;
+  userId:  number | null = null;  
+  usuarioOriginal?: User; // Asegúrate que pueda ser undefined al inicio
 
-
- async ngOnInit() {
+   async ngOnInit() {
     if (this.idUsuario()){
     this.usuarioOriginal = await this.userService.getUserById(this.idUsuario()!);
 
@@ -37,20 +37,36 @@ export class EditUserPage {
       phoneNumber: this.usuarioOriginal!.phoneNumber,
       password: this.usuarioOriginal!.password,
       password2: this.usuarioOriginal!.password,
+      isFavorite: this.usuarioOriginal!.isFavorite
     });
 };
   }
 
-  async handleFormSubmission(usuarioEditado: NewUser) {
-    let res;
-    this.isLoading = true;
-    if (!this.idUsuario()){
-     return 
-    }else{
-      res = await this.userService.editUser({...usuarioEditado, id: this.idUsuario()!});
-    }
+  async handleFormSubmission(form: NgForm) {
+    if (!this.usuarioOriginal) return;
+
+
+    const usuarioEditado: User = {
+      id: this.usuarioOriginal.id,
+      restaurantName: form.value.restaurantName,
+      firstName: form.value.firstName,
+      lastName: form.value.lastName,
+      address: form.value.address,
+      password: form.value.password,
+      phoneNumber: form.value.phoneNumber,
+      isFavorite: form.value.isFavorite
+    };
+
+    const res = await this.userService.editUser(usuarioEditado);
+    this.router.navigate(['/admin']);
+
     this.isLoading = false;
 
-    this.router.navigate(["/admin"]);
+    if (!res) {
+      this.errorBack = true;
+      return;
+    }
+
+    this.success = true;
   }
 }
