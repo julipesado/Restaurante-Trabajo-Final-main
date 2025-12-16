@@ -9,3 +9,6 @@ export interface User {
     isFavorite: boolean;
 }
 export type NewUser = Omit<User, "id">;
+export type UpdateUser = Omit<User, 'isFavorite' | 'password'> & {
+  password?: string;
+};

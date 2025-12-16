@@ -67,11 +67,6 @@ export const routes: Routes = [
         component: ProductPage
     },
     {
-        path: "edit-user/:idUser/edit",
-        component: EditUserPage,
-        canActivate: [onlyLoggedUserGuard]
-    },
-    {
         path: "edit-user",
         component: EditUserPage,
         canActivate: [onlyLoggedUserGuard]
