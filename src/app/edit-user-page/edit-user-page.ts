@@ -31,12 +31,14 @@ export class EditUserPage {
         address: this.usuarioOriginal!.address,
         phoneNumber: this.usuarioOriginal!.phoneNumber,
         restaurantName: this.usuarioOriginal!.restaurantName,
-        password: this.usuarioOriginal!.password
+        password: this.usuarioOriginal!.password,
+        password2: this.usuarioOriginal!.password
       }) 
     }
   }
 
   async handleFormSubmission(form: NgForm) {
+    if (!this.usuarioOriginal) return; 
       const newUser: User = {
       id: this.usuarioOriginal?.id as number,
       restaurantName: form.value.restaurantName,
