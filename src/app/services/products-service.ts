@@ -13,7 +13,7 @@ export class ProductsService implements OnInit {
   restaurantProducts: Product[] = [];
 
   async createProduct(nuevoProducto: NewProduct) {
-    const res = await fetch("https://w370351.ferozo.com/api/products/",
+    const res = await fetch("https://w370351.ferozo.com/api/products",
       {
         method: "POST",
         body: JSON.stringify(nuevoProducto),
