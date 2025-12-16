@@ -35,12 +35,12 @@ export class AuthService {
   getRestaurantName() {
     return localStorage.getItem("restaurantName");
   }
-  
+
   getUserId() {
     const claims = this.parseJwt();
     return parseInt(claims.sub);
   }
-  
+
   parseJwt() {
     if (!this.token) return null;
     const base64Url = this.token.split('.')[1];
@@ -49,6 +49,6 @@ export class AuthService {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
     return JSON.parse(jsonPayload);
-  }
+  }
 }
 

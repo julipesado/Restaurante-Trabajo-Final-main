@@ -26,11 +26,11 @@ export class RestaurantPage implements OnInit {
   // Inputs y datos
   idRestaurant = input.required<number>();
   user: User | undefined = undefined;
-  categories = this.categoriesService.categories
+  categories = this.categoriesService.categories;
   selectedCategoryId : number|null = null;
 
   async ngOnInit(){
-     const restaurantId = this.idRestaurant();
+    const restaurantId = this.idRestaurant();
     if (restaurantId) {
       this.user = this.userService.users.find(r => r.id === restaurantId);
       if (!this.user) {
@@ -58,5 +58,8 @@ export class RestaurantPage implements OnInit {
 
   goToRestaurants() {
     this.router.navigate(['/']);
+  }
+  categoryOf(product: Product) {
+  return this.categoriesService.categories.find(c => c.id === product.categoryId)!;
   }
 }

@@ -47,41 +47,32 @@
   <ul class="list-group">
     <div class="categories-nav">
       @for (category of this.categories ; track category.id) {
-      <button class="category-filter" (click)="this.categoriesService.selectCategory(category.id)"
-        [class.active]="selectedCategoryId === category.id">
-        {{ category.name }}
-      </button>
-      }
-    </div>
-    @if (productsService.restaurantProducts.length === 0) {
-    <div class="alert alert-light text-center">
-      <p class="mb-1 fw-bold">No hay productos aún</p>
-      <p class="mb-0 text-muted">Crea un producto para que aparezca en tu menú</p>
-    </div>
-    } @else {
-    @for (product of productsService.restaurantProducts; track product.id){
-    <li class="list-group-item py-3">
-      <div class="d-flex align-items-center justify-content-between">
-        <a [routerLink]="['/product', product.id]"> <strong class="fs-5"> {{ product.name }} </strong> </a>
-        <div>
-          @if (product.discount > 0) {
-          <span class="badge bg-danger me-2"> {{ product.discount }}% OFF </span>
-          }
-          @if (product.hasHappyHour) {
-          <span class="badge bg-success"> Happy Hour </span>
-          }
-          @if (product.featured) {
-          <span class="badge bg-success"> Producto destacado! </span>
-          }
+      <span class="category-filter"> {{ category.name }}</span>
+      @for (product of productsService.restaurantProducts; track product.id){
+      @if (product.categoryId === category.id){
+      <li class="list-group-item py-3">
+        <div class="d-flex align-items-center justify-content-between">
+          <a [routerLink]="['/product', product.id]"> <strong class="fs-5"> {{ product.name }} </strong> </a>
+          <div>
+            @if (product.discount > 0) {
+            <span class="badge bg-danger me-2"> {{ product.discount }}% OFF </span>
+            }
+            @if (product.hasHappyHour) {
+            <span class="badge bg-success"> Happy Hour </span>
+            }
+            @if (product.featured) {
+            <span class="badge bg-success"> Producto destacado! </span>
+            }
+          </div>
         </div>
-      </div>
-      <p class="mb-1 mt-2">{{ product.description }}</p>
-      <p class="fw-bold mb-0">Precio: ${{ productsService.getFinalPrice(product) }}</p>
-    </li>
+        <p class="mb-1 mt-2">{{ product.description }}</p>
+        <p class="fw-bold mb-0">Precio: ${{ productsService.getFinalPrice(product) }}</p>
+      </li>
+      }
     }
-    }
+  }
+  </div>
   </ul>
   }
-<!-- hacer lo de las categorias como en el logged layout -->
   }
 </div>
