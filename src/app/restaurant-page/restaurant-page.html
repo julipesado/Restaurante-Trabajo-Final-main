@@ -36,7 +36,7 @@
   <div class="alert alert-info text-center">
     Todavía no hay productos.
     <button class="link-button" (click)="goToRestaurants()">
-      ¡Explorar otros restaurantes!
+    ¡Explorar otros restaurantes!
     </button>
   </div>
 
@@ -53,6 +53,7 @@
       <li class="list-group-item py-3">
         <div class="d-flex align-items-center justify-content-between">
           <a [routerLink]="['/product', product.id]"> <strong class="fs-5"> {{ product.name }} </strong> </a>
+           <span class="badge bg-secondary ms-2"> {{ categoryOf(product).name }}</span>
           <div>
             @if (product.discount > 0) {
             <span class="badge bg-danger me-2"> {{ product.discount }}% OFF </span>
