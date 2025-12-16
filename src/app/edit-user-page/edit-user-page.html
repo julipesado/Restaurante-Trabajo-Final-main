@@ -1,72 +1,180 @@
-<div class="edit-profile-container">
-  <div class="edit-profile-tarjeta">
-    <h1>Editar Perfil</h1>
-    <form #editUserForm="ngForm" (ngSubmit)="handleFormSubmission(editUserForm)">
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
 
-      <div>
-        <label for="restaurantName">Nombre del restaurante*</label>
-        <input id="restaurantName" name="restaurantName" type="text" minlength="2"
-          ngModel="{{usuarioOriginal?.restaurantName}}" #restaurantName="ngModel" required="true">
-        @if (restaurantName.invalid && !restaurantName.pristine) {
-            <p class="error">Debe colocar un nombre de restaurante.</p>
-        }
-      </div>
+      <div class="card shadow-sm">
+        <div class="card-body">
 
-      <div>
-        <label for="firstName">Nombre*</label>
-        <input id="firstName" name="firstName" type="text" ngModel="{{usuarioOriginal?.firstName}}" #firstName="ngModel" required="true" autocomplete="given-name" minlength="2" maxlength="15">
-        @if (firstName.invalid && !firstName.pristine) {
-            <p class="error">Debe ingresar su nombre.</p>
-        }
-      </div>
+          <h2 class="text-center mb-4">Editar perfil</h2>
 
-      <div>
-        <label for="lastName">Apellido*</label>
-        <input id="lastName" name="lastName" type="text" ngModel="{{usuarioOriginal?.lastName}}" #lastName="ngModel" required="true" autocomplete="family-name" minlength="2" maxlength="20">
-        @if (lastName.invalid && !lastName.pristine) {
-            <p class="error">Debe ingresar su apellido.</p>
-        }
-      </div>
+          <form
+            #editUserForm="ngForm"
+            (ngSubmit)="handleFormSubmission(editUserForm)"
+          >
 
-      <div>
-        <label for="phoneNumber">Teléfono*</label>
-        <input id="phoneNumber" name="phoneNumber" type="text" ngModel="{{usuarioOriginal?.phoneNumber}}" #phoneNumber="ngModel" required="true" minlength="3" maxlength="30">
-        @if (phoneNumber.invalid && !phoneNumber.pristine) {
-            <p class="error">Debe ingresar un teléfono válido.</p>
-        }
-    </div>
+          
+            <div class="mb-3">
+              <label class="form-label">Nombre del restaurante *</label>
+              <input
+                type="text"
+                class="form-control"
+                name="restaurantName"
+                ngModel
+                [ngModel]="usuarioOriginal?.restaurantName"
+                minlength="2"
+                required
+                #restaurantName="ngModel"
+              >
+              @if (restaurantName.invalid && !restaurantName.pristine) {
+                <div class="text-danger small mt-1">
+                  Debe colocar un nombre de restaurante.
+                </div>
+              }
+            </div>
 
-      <div>
-        <label for="address">Dirección</label>
-        <input id="address" name="address" type="text" ngModel="{{usuarioOriginal?.address}}" #address="ngModel" required="true" minlength="5">
-        @if (address.invalid && !address.pristine) {
-            <p class="error">Debe ingresar una dirección válida.</p>
-        }
-      </div>
+            
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nombre *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="firstName"
+                  ngModel
+                  [ngModel]="usuarioOriginal?.firstName"
+                  required
+                  minlength="2"
+                  maxlength="15"
+                  autocomplete="given-name"
+                  #firstName="ngModel"
+                >
+                @if (firstName.invalid && !firstName.pristine) {
+                  <div class="text-danger small mt-1">
+                    Debe ingresar su nombre.
+                  </div>
+                }
+              </div>
 
-      <div class="password-section">
-        <div>
-          <label for="password">Nueva contraseña</label>
-          <input id="password" name="password" type="password" ngModel #password="ngModel" minlength="8"
-            autocomplete="new-password">
-          @if (password.invalid && !password.pristine) {
-          <p class="error"> Debe colocar una contraseña de al menos 8 caracteres.</p>
-          }
+              <div class="col-md-6">
+                <label class="form-label">Apellido *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="lastName"
+                  ngModel
+                  [ngModel]="usuarioOriginal?.lastName"
+                  required
+                  minlength="2"
+                  maxlength="20"
+                  autocomplete="family-name"
+                  #lastName="ngModel"
+                >
+                @if (lastName.invalid && !lastName.pristine) {
+                  <div class="text-danger small mt-1">
+                    Debe ingresar su apellido.
+                  </div>
+                }
+              </div>
+            </div>
+
+            
+            <div class="mb-3 mt-3">
+              <label class="form-label">Teléfono *</label>
+              <input
+                type="text"
+                class="form-control"
+                name="phoneNumber"
+                ngModel
+                [ngModel]="usuarioOriginal?.phoneNumber"
+                required
+                minlength="3"
+                maxlength="30"
+                #phoneNumber="ngModel"
+              >
+              @if (phoneNumber.invalid && !phoneNumber.pristine) {
+                <div class="text-danger small mt-1">
+                  Debe ingresar un teléfono válido.
+                </div>
+              }
+            </div>
+
+            
+            <div class="mb-4">
+              <label class="form-label">Dirección *</label>
+              <input
+                type="text"
+                class="form-control"
+                name="address"
+                ngModel
+                [ngModel]="usuarioOriginal?.address"
+                required
+                minlength="5"
+                #address="ngModel"
+              >
+              @if (address.invalid && !address.pristine) {
+                <div class="text-danger small mt-1">
+                  Debe ingresar una dirección válida.
+                </div>
+              }
+            </div>
+
+            
+            <hr class="my-4">
+            <h5 class="mb-3">Cambiar contraseña</h5>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nueva contraseña</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  ngModel
+                  minlength="8"
+                  autocomplete="new-password"
+                  #password="ngModel"
+                >
+                @if (password.invalid && !password.pristine) {
+                  <div class="text-danger small mt-1">
+                    Mínimo 8 caracteres.
+                  </div>
+                }
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Confirmar contraseña</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password2"
+                  ngModel
+                  minlength="8"
+                  #password2="ngModel"
+                >
+                @if (password.value && password2.value && password.value !== password2.value) {
+                  <div class="text-danger small mt-1">
+                    Las contraseñas no coinciden.
+                  </div>
+                }
+              </div>
+            </div>
+
+            
+            <div class="d-grid mt-4">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                [disabled]="isLoading || editUserForm.invalid"
+              >
+                Guardar cambios
+              </button>
+            </div>
+
+          </form>
+
         </div>
-
-        <div>
-          <label for="password2">Confirmar nueva contraseña</label>
-          <input id="password2" name="password2" type="password" ngModel #password2="ngModel" minlength="8">
-          @if (password.value && password2.value && password.value !== password2.value) {
-          <p class="error">Las contraseñas no coinciden.</p>
-          }
-        </div>
       </div>
 
-      <div class="form-actions">
-        <button type="submit" [disabled]="isLoading || editUserForm.invalid">
-          Guardar cambios
-        </button>
-
     </div>
-    </form>
+  </div>
+</div>
