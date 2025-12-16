@@ -1,74 +1,76 @@
-<div class="edit-profile-container">
-  <div class="edit-profile-tarjeta">
-    <h1>Editar Perfil</h1>
-    <form (ngSubmit)="handleFormSubmission(editUserForm)" #editUserForm="ngForm">
+<div class="contenedor">
+    <h1>Editar mi cuenta</h1>
 
-      <div>
-        <label for="restaurantName">Nombre del restaurante*</label>
-        <input id="restaurantName" name="restaurantName" type="text" minlength="2"
-          ngModel="{{usuarioOriginal?.restaurantName}}" #restaurantName="ngModel" required="true">
-        @if (restaurantName.invalid && !restaurantName.pristine) {
-        <p class="error">Debe colocar un nombre de restaurante.</p>
-        }
-      </div>
 
-      <div>
-        <label for="firstName">Nombre*</label>
-        <input id="firstName" name="firstName" type="text" ngModel="{{usuarioOriginal?.firstName}}" #firstName="ngModel"
-          required="true" autocomplete="given-name" minlength="2" maxlength="15">
-        @if (firstName.invalid && !firstName.pristine) {
-        <p class="error">Debe ingresar su nombre.</p>
-        }
-      </div>
+    <div class="card">
+        <form (ngSubmit)="handleFormSubmission(editUserForm.value)" #editUserForm="ngForm">
+            <div>
+                <label for="restaurantName">Nombre de restaurante</label>
+                <input id="restaurantName" name="restaurantName" type="text" ngModel="{{usuarioOriginal?.restaurantName}}"
+                    #restaurantName="ngModel" required="true">
+                @if (restaurantName.invalid && !restaurantName.pristine) {
+                <p>Debe colocar un nombre.</p>
+                }
+            </div>
+            <div>
+                <label for="firstName">Nombre</label>
+                <input id="firstName" name="firstName" type="text" ngModel="{{usuarioOriginal?.firstName}}"
+                    #firstName="ngModel" required="true">
+                @if (firstName.invalid && !firstName.pristine) {
+                <p>Debe colocar un nombre.</p>
+                }
+            </div>
+            <div>
+                <label for="lastName">Apellido</label>
+                <input id="lastName" name="lastName" type="text" ngModel="{{usuarioOriginal?.lastName}}"
+                    #lastName="ngModel" required="true">
+                @if (lastName.invalid && !lastName.pristine) {
+                <p>Debe colocar un apellido.</p>
+                }
+            </div>
+            <div>
+                <label for="address">Dirección</label>
+                <input id="address" name="address" type="text" ngModel="{{usuarioOriginal?.address}}" #address="ngModel"
+                    required="true">
+                @if (address.invalid && !address.pristine) {
+                <p>Debe colocar una dirección.</p>
+                }
+            </div>
+            <div>
+                <label for="phoneNumber">Teléfono</label>
+                <input id="phoneNumber" name="phoneNumber" type="text" ngModel="{{usuarioOriginal?.phoneNumber}}"
+                    #phoneNumber="ngModel" required="true">
+                @if (phoneNumber.invalid && !phoneNumber.pristine) {
+                <p>Debe colocar un número de teléfono</p>
+                }
+            </div>
 
-      <div>
-        <label for="lastName">Apellido*</label>
-        <input id="lastName" name="lastName" type="text" ngModel="{{usuarioOriginal?.lastName}}" #lastName="ngModel"
-          required="true" autocomplete="family-name" minlength="2" maxlength="20">
-        @if (lastName.invalid && !lastName.pristine) {
-        <p class="error">Debe ingresar su apellido.</p>
-        }
-      </div>
+            <div>
+                <label for="password">contraseña</label>
+                <input id="password" name="password" type="text" ngModel="{{usuarioOriginal?.password}}"
+                    #password="ngModel" required="true">
+                @if (password.invalid && !password.pristine) {
+                <p>Debe colocar una contraseña de al menos 4 caracteres.</p>
+                }
+            </div>
 
-      <div>
-        <label for="phoneNumber">Teléfono*</label>
-        <input id="phoneNumber" name="phoneNumber" type="text" ngModel="{{usuarioOriginal?.phoneNumber}}"
-          #phoneNumber="ngModel" required="true" minlength="3" maxlength="30">
-        @if (phoneNumber.invalid && !phoneNumber.pristine) {
-        <p class="error">Debe ingresar un teléfono válido.</p>
-        }
-      </div>
+            <div>
+                <label for="password2"> Repetir la contraseña</label>
+                <input id="password2" name="password2" type="text" ngModel #password2="ngModel" required="true">
+                @if ( password.value && password2.value && password.value !== password2.value) {
+                <p> las contraseñas no coinciden</p>
 
-      <div>
-        <label for="address">Dirección</label>
-        <input id="address" name="address" type="text" ngModel="{{usuarioOriginal?.address}}" #address="ngModel"
-          required="true" minlength="5">
-        @if (address.invalid && !address.pristine) {
-        <p class="error">Debe ingresar una dirección válida.</p>
-        }
-      </div>
+                }
+            </div>
 
-      <div class="password-section">
-        <div>
-          <label for="password">Nueva contraseña</label>
-          <input id="password" name="password" type="password" ngModel #password="ngModel" minlength="8"
-            autocomplete="new-password">
-          @if (password.invalid && !password.pristine) {
-          <p class="error"> Debe colocar una contraseña de al menos 8 caracteres.</p>
-          }
-        </div>
+            <button [disabled]="editUserForm.invalid|| password.value !== password2.value">Guardar cambios</button>
+            @if (error) {
+            <p>{{error}}</p>
+            }
+            @if (success) {
+            <p>Su cuenta ha sido actualizada</p>
+            }
 
-        <div>
-          <label for="password2">Confirmar nueva contraseña</label>
-          <input id="password2" name="password2" type="password" ngModel #password2="ngModel" minlength="8">
-          @if (password.value && password2.value && password.value !== password2.value) {
-          <p class="error">Las contraseñas no coinciden.</p>
-          }
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <button [disabled]="editUserForm.invalid|| password.value !== password2.value">Guardar cambios</button>
-
-      </div>
-    </form>
+        </form>
+    </div>
+</div>

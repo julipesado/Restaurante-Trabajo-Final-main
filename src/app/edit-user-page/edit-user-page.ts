@@ -20,41 +20,37 @@ export class EditUserPage {
   form = viewChild<NgForm>('editUserForm');
   isLoading = false; 
   user: User | undefined; 
+  errorBack = false;
+  success = false;
+  error: string | null = null;
 
 
-  async ngOnInit() {
-    if (this.idUsuario()) {
-      this.usuarioOriginal = await this.userService.getUserById(this.idUsuario()!) //* el ! dsp de la variable significa que esta revisado de que no es undefined 
-      this.form()?.setValue({
-        firstName: this.usuarioOriginal!.firstName,
-        lastName: this.usuarioOriginal!.lastName,
-        address: this.usuarioOriginal!.address,
-        phoneNumber: this.usuarioOriginal!.phoneNumber,
-        restaurantName: this.usuarioOriginal!.restaurantName,
-        password: this.usuarioOriginal!.password,
-        password2: this.usuarioOriginal!.password
-      }) 
-    }
+ async ngOnInit() {
+    if (this.idUsuario()){
+    this.usuarioOriginal = await this.userService.getUserById(this.idUsuario()!);
+
+    this.form()?.setValue({
+      restaurantName: this.usuarioOriginal!.restaurantName,
+      firstName: this.usuarioOriginal!.firstName,
+      lastName: this.usuarioOriginal!.lastName,
+      address: this.usuarioOriginal!.address,
+      phoneNumber: this.usuarioOriginal!.phoneNumber,
+      password: this.usuarioOriginal!.password,
+      password2: this.usuarioOriginal!.password,
+    });
+};
   }
 
-  async handleFormSubmission(form: NgForm) {
-    if (!this.usuarioOriginal) return; 
-      const newUser: User = {
-      id: this.usuarioOriginal?.id as number,
-      restaurantName: form.value.restaurantName,
-      firstName: form.value.firstName,
-      lastName: form.value.lastName,
-      address: form.value.address,
-      phoneNumber: form.value.phoneNumber,
-      password: form.value.password || this.usuarioOriginal?.password,
-      isFavorite: form.value.isFavorite
-    };
+  async handleFormSubmission(usuarioEditado: NewUser) {
     let res;
-    this.isLoading= true
-    if (this.idUsuario()) {
-      res = await this.userService.editUser({ ...newUser, id: this.idUsuario()!});
-    } 
-    this.isLoading = false;
-    this.router.navigate(["/admin"])
+    this.isLoading = true;
+    if (!this.idUsuario()){
+     return 
+    }else{
+      res = await this.userService.editUser({...usuarioEditado, id: this.idUsuario()!});
     }
+    this.isLoading = false;
+
+    this.router.navigate(["/admin"]);
   }
+}
