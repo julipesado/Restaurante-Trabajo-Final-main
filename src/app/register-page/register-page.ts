@@ -29,6 +29,6 @@ router = inject(Router)
       this.router.navigate(["/login"])
     } //** res.ok --> me llegó un status code 200 (éxito) */
     this.isLoading = false; 
-    this.errorRegister = true; 
+    this.errorRegister=true;
   }
 }

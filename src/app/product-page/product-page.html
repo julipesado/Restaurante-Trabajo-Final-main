@@ -9,15 +9,15 @@
         <span class="badge bg-danger me-2"> {{ product.discount }}% OFF </span>
         }
         @if (product.hasHappyHour) {
-        <span class="badge bg-success"> Happy Hour </span>
+        <span class="badge bg-success"> Happy Hour!🥳 </span>
         }
         @if (product.featured) {
-        <span class="badge bg-success"> Producto destacado! </span>
+        <span class="badge bg-success"> Producto destacado!🎉 </span>
         }
       </div>
+      <p class="mb-1 mt-2">Producto recomendado para: {{ product.recommendedFor }} personas</p>
       <p class="mb-1 mt-2">{{ product.description }}</p>
       <p class="fw-bold mb-0">Precio: ${{ productsService.getFinalPrice(product) }}</p>
-      <!-- <a [routerLink]="['/restaurant', restaurant.id]">Volver</a> -->
     </div>
   </li>
 }
