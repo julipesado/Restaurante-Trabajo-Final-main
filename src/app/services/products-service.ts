@@ -38,25 +38,19 @@ async getProductsMe() {
     this.userProducts = await res.json();
     return this.userProducts;
   }
-async getRestaurantProducts(restaurantId: number | string) {
-  const url = "https://w370351.ferozo.com/api/users/" + restaurantId + "/products";
-  
-  const res = await fetch(url, {
-    method: 'GET', 
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + localStorage.getItem('token')
+  async getRestaurantProducts(restaurantId: number | string) {
+    const res = await fetch("https://w370351.ferozo.com/api/users/" + restaurantId + "/products",
+      {
+        headers: {
+          Authorization: "Bearer " + this.authService.token,
+        },
+      })
+    if (!res.ok) {
+      return
     }
-  });
+    return this.restaurantProducts = await res.json();
 
-  if (!res.ok) {
-    console.error("Error trayendo productos:", res.status);
-    return []; 
   }
-
-  const resJson = await res.json();
-  return resJson;
-}
 
   async getProduct(id: number) {
     const res = await fetch('https://w370351.ferozo.com/api/products/' + id);
