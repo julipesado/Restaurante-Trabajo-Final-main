@@ -60,22 +60,18 @@ async ngOnInit() {
 
   async handleFormSubmission(form: NgForm) {
 
-  // 1. Ver si el botón realmente llama a la función
-  console.log(">>> 1. Función handleFormSubmission INICIADA");
-  console.log("Estado del formulario:", form.valid ? 'Válido' : 'Inválido');
-  console.log("Valores del formulario:", form.value);
+  // console.log(">>> 1. Función handleFormSubmission INICIADA");
+  // console.log("Estado del formulario:", form.valid ? 'Válido' : 'Inválido');
+  // console.log("Valores del formulario:", form.value);
   
-  // 2. Ver si tenemos los datos originales cargados
-  console.log("Usuario Original:", this.usuarioOriginal);
-  console.log("ID Usuario:", this.idUsuario());
+  // console.log("Usuario Original:", this.usuarioOriginal);
+  // console.log("ID Usuario:", this.idUsuario());
 
   if (!this.usuarioOriginal || !this.idUsuario()) {
-    console.error(">>> ERROR: Faltan datos originales. La función se detiene aquí.");
+    console.error("ERROR: Faltan datos originales. La función se detiene aquí.");
     this.errorBack = true;
     return;
   }
-
-  console.log(">>> 2. Pasamos la validación inicial, preparando datos...");
 
   const usuarioEditado: User = {
   id: this.usuarioOriginal.id,
@@ -85,23 +81,16 @@ async ngOnInit() {
   address: form.value.address,
   phoneNumber: form.value.phoneNumber,
   
-  // Lógica de contraseña (la corrección anterior)
   password: form.value.password ? form.value.password : this.usuarioOriginal.password,
 
-  // IMPORTANTE: Esto no viene del form, viene del original
   isFavorite: this.usuarioOriginal.isFavorite 
 };
-
-// AGREGA ESTO TEMPORALMENTE PARA VER QUÉ ENVÍAS:
-console.log("Datos que se envían:", usuarioEditado);
-  
-  console.log(">>> 3. Intentando enviar al servidor...");
   try {
      await this.userService.editUser(usuarioEditado);
-     console.log(">>> 4. ¡ÉXITO! Respuesta recibida.");
+     console.log("Respuesta recibida.");
      this.router.navigate(['/admin']);
   } catch (e) {
-     console.error(">>> ERROR EN EL CATCH:", e);
+     console.error("ERROR EN EL CATCH:", e);
   }
 }
 }

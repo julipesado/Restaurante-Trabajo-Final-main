@@ -9,7 +9,7 @@
 
           <form #editUserForm="ngForm" (ngSubmit)="handleFormSubmission(editUserForm)">
 
-
+            <!-- pristine es que no esta modificado -->
             <div class="mb-3">
               <label class="form-label">Nombre del restaurante *</label>
               <input type="text" class="form-control" name="restaurantName" ngModel
@@ -79,7 +79,7 @@
                 <label class="form-label">Nueva contraseña</label>
                 <input type="password" class="form-control" name="password" ngModel minlength="8"
                   autocomplete="new-password" #password="ngModel">
-                @if (password.invalid && !password.pristine) {
+                @if (password.invalid && !password.pristine) { <!-- si la contraseña es invalida y el campo esta intacto -->
                 <div class="text-danger small mt-1">
                   Mínimo 8 caracteres.
                 </div>
