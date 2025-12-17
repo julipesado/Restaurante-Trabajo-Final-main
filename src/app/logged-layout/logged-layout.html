@@ -63,7 +63,7 @@
   </div>
 
 
-  @for (category of categories; track category.id) {
+  @for (category of categoriesService.categories; track category.id) {
 
     <div class="card shadow-sm mb-4">
 
@@ -88,13 +88,15 @@
       
       <ul class="list-group list-group-flush">
 
-        @for (product of getProductsByCategory(category.id); track product.id) {
+        @for (product of productService.userProducts; track $index) {
+          @if(product.categoryId === category.id){
           <li class="list-group-item">
             <app-product-list-item
               [product]="product"
-              [category]="category">
+              [category]="categoryOf(product)">
             </app-product-list-item>
           </li>
+        }
         }
 
         @empty {

@@ -50,8 +50,9 @@
                 ${{ productsService.getFinalPrice(product) }}
               </span>
             </div>
+            @if(product.recommendedFor){
               <p class="mb-1 mt-2">Producto recomendado para: {{ product.recommendedFor }} personas</p>
-
+            }
 
           </div>
         </div>

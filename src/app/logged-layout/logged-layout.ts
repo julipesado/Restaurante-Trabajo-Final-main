@@ -24,8 +24,8 @@ export class LoggedLayout implements OnInit {
   categoriesService= inject (CategoriesService);
   me: User | undefined;
   error = false;
-  products: Product[] = []; 
-  categories: Category[] = []; 
+  products: Product[] = [];
+  categories: Category[] = [];
 
   async ngOnInit() {
   try {
@@ -36,27 +36,27 @@ export class LoggedLayout implements OnInit {
       console.log("Usuario cargado:", this.me);
 
       this.products = await this.productService.getProductsMe();
-      
+
       this.categories = await this.categoriesService.getCategoriesByRestaurant(userId);
-      
+
     } else {
       console.error("No hay usuario logueado o el token expiró");
       this.error = true;
-      this.authService.logout(); 
+      this.authService.logout();
     }
   } catch (error) {
     console.error("Error cargando datos del panel:", error);
     this.error = true;
   }
 }
-// categoryOf(product: Product) {
-//    return this.categories.find(category => category.id === product.categoryId)!;
-// }
-  getProductsByCategory(categoryId: number): Product[] {
-  return this.products.filter(p => {
-    return p.categoryId == categoryId;
-  });
+categoryOf(product: Product) {
+  return this.categories.find(category => category.id === product.categoryId)!;
 }
+//   getProductsByCategory(categoryId: number): Product[] {
+//   return this.products.filter(p => {
+//     return p.categoryId == categoryId;
+//   });
+// }
   addCategory(){
     this.categoriesService.createCategory
   }
@@ -75,7 +75,7 @@ export class LoggedLayout implements OnInit {
   editProduct(){
     this.productService.editProduct
   }
-  
+
   logOut(){
     this.authService.logout()
   }
