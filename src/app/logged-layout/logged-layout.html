@@ -1,78 +1,117 @@
 <div class="container py-4">
 
-
-  <div class="card shadow-sm mb-4">
+  
+  <div class="card shadow-sm mb-5">
     <div class="card-body">
-      <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+      <div class="row align-items-center">
 
-        <div>
-          <h3 class="mb-3">{{ me?.restaurantName }}</h3>
+        
+        <div class="col-md-8">
+          <h2 class="mb-3">{{ me?.restaurantName }}</h2>
 
-          <p class="mb-1"><strong>Teléfono:</strong> {{ me?.phoneNumber }}</p>
-          <p class="mb-1"><strong>Dueño:</strong> {{ me?.firstName }} {{ me?.lastName }}</p>
-          <p class="mb-0"><strong>Dirección:</strong> {{ me?.address }}</p>
+          <p class="mb-1">
+            <strong>📞 Teléfono:</strong> {{ me?.phoneNumber }}
+          </p>
+          <p class="mb-1">
+            <strong>👤 Dueño:</strong> {{ me?.firstName }} {{ me?.lastName }}
+          </p>
+          <p class="mb-0">
+            <strong>📍 Dirección:</strong> {{ me?.address }}
+          </p>
         </div>
 
-        <div class="d-flex flex-column gap-2">
-          <button class="btn btn-outline-danger" (click)="logOut()">Log out</button>
-          <button class="btn btn-outline-danger" (click)="deleteAccount()"> Eliminar cuenta </button>
-          @if (me) {
-          <a [routerLink]="['/edit-user', me.id]" class="btn btn-primary"> Editar cuenta</a>
-          }
+        
+        <div class="col-md-4">
+          <div class="d-grid gap-2 mt-3 mt-md-0">
+            <button class="btn btn-outline-danger" (click)="logOut()">
+              Log out
+            </button>
 
-          <a routerLink="/add-product" class="btn btn-primary">
-            + Agregar producto
-          </a>
+            <button class="btn btn-outline-danger" (click)="deleteAccount()">
+              Eliminar cuenta
+            </button>
+
+            @if (me) {
+              <a
+                [routerLink]="['/edit-user', me.id]"
+                class="btn btn-primary"
+              >
+                Editar cuenta
+              </a>
+            }
+
+            <a routerLink="/add-product" class="btn btn-success">
+              + Agregar producto
+            </a>
+          </div>
         </div>
 
       </div>
     </div>
   </div>
 
-  <div>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4 class="mb-0">Categorías</h4>
-      <a routerLink="/add-categories" class="btn btn-outline-primary btn-sm">
-        + Agregar categoría
-      </a>
-    </div>
+  
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0">Categorías</h3>
 
-    <div class="container py-4">
+    <a
+      routerLink="/add-categories"
+      class="btn btn-outline-primary btn-sm"
+    >
+      + Agregar categoría
+    </a>
+  </div>
 
-      @for (category of categories; track category.id) {
 
-      <div class="card shadow-sm mb-4">
+  @for (category of categories; track category.id) {
 
-        <div class="card-header bg-white d-flex justify-content-between align-items-center">
-          <h5 class="mb-0 fw-bold">{{ category.name }}</h5>
-          <div>
-            <button class="btn btn-sm btn-outline-secondary me-1">Editar</button>
-            <button class="btn btn-sm btn-outline-danger"
-              (click)="categoriesService.deleteCategory(category.id)">Eliminar</button>
-          </div>
+    <div class="card shadow-sm mb-4">
+
+     
+      <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-bold">{{ category.name }}</h5>
+
+        <div>
+          <button class="btn btn-sm btn-outline-secondary me-2">
+            Editar
+          </button>
+
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="categoriesService.deleteCategory(category.id)"
+          >
+            Eliminar
+          </button>
         </div>
+      </div>
 
-        <ul class="list-group list-group-flush">
+      
+      <ul class="list-group list-group-flush">
 
-          @for (product of getProductsByCategory(category.id); track product.id) {
-
-          <li class="list-group-item p-0">
-            <app-product-list-item [product]="product" [category]="category">
+        @for (product of getProductsByCategory(category.id); track product.id) {
+          <li class="list-group-item">
+            <app-product-list-item
+              [product]="product"
+              [category]="category">
             </app-product-list-item>
           </li>
+        }
 
-          } @empty {
-          <li class="list-group-item text-center py-4 text-muted">
-            <small>No hay productos en esta categoría.</small>
+        @empty {
+          <li class="list-group-item text-center text-muted py-4">
+            No hay productos en esta categoría.
           </li>
-          }
-        </ul>
-      </div>
+        }
 
-      } @empty {
-      <div class="alert alert-info text-center">
-        No tienes categorías creadas.
-      </div>
-      }
-
+      </ul>
     </div>
+
+  } @empty {
+
+    <div class="alert alert-info text-center">
+      No tienes categorías creadas.
+    </div>
+
+  }
+
+</div>

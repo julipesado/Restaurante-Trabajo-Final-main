@@ -1,16 +1,50 @@
-<li>
-    @for (product of productService.userProducts; track product.id) {
-    <span>{{product.name}}</span>
-    <span class="productData">{{product.price}}</span>
-    <span class="productData">{{product.description}}</span>
-    <span class="productData">{{product.discount}}</span>
-    @if (product.hasHappyHour) {
-        <p> Happy Hour! 🥳</p>
-    }
-    <span class="acciones">
-        <button class="botonBorrar" (click)="deleteProduct()">Borrar</button>
-        <a class="botonEdit" [routerLink]="['/product', product.id, 'edit']">Editar</a>
-    </span>
-}
+<li class="list-group-item">
+  @for (product of productService.userProducts; track product.id) {
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+      
+      <div>
+        <h6 class="mb-1 fw-bold">{{ product.name }}</h6>
+
+        <small class="text-muted">
+          ${{ product.price }}
+          @if (product.discount) {
+            · {{ product.discount }}% OFF
+          }
+        </small>
+
+        @if (product.description) {
+          <div class="text-muted small">
+            {{ product.description }}
+          </div>
+        }
+
+        @if (product.hasHappyHour) {
+          <span class="badge bg-warning text-dark mt-1">Happy Hour 🥳</span>
+        }
+      </div>
+
+     
+      <div class="d-flex gap-2">
+        <button
+          class="btn btn-sm btn-outline-danger"
+          (click)="deleteProduct()"
+        >
+          Eliminar
+        </button>
+
+        <a
+          class="btn btn-sm btn-outline-primary"
+          [routerLink]="['/product', product.id, 'edit']"
+        >
+          Editar
+        </a>
+      </div>
+
+    </div>
+
+  }
 </li>
+
     
