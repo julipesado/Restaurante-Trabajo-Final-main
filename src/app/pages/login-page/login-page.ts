@@ -3,6 +3,7 @@ import { routes } from '../../app.routes';
 import { AuthService } from '../../services/auth-service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Spinner } from "../../spinner/spinner";
 
 @Component({
   selector: 'app-login-page',

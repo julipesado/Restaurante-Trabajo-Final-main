@@ -1,9 +1,7 @@
 import { Component, inject, input, OnInit } from '@angular/core';
 import { ProductsService } from '../services/products-service';
 import { Product } from '../interfaces/interfaces/product';
-import { RouterLink } from "@angular/router";
-import { UserService } from '../services/user-service';
-import { AuthService } from '../services/auth-service';
+
 
 @Component({
   selector: 'app-product-page',
@@ -15,7 +13,6 @@ export class ProductPage implements OnInit {
   idProduct = input.required<string>();
   product: Product | undefined;
   productsService = inject(ProductsService); 
-  router: any;
 
   async ngOnInit() {
     this.product = await this.productsService.getProduct(parseInt(this.idProduct()));

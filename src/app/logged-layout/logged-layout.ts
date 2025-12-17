@@ -38,7 +38,7 @@ export class LoggedLayout implements OnInit {
       this.products = await this.productService.getProductsMe();
 
       this.categories = await this.categoriesService.getCategoriesByRestaurant(userId);
-
+      console.log(this.products,this.categories)
     } else {
       console.error("No hay usuario logueado o el token expiró");
       this.error = true;
@@ -85,4 +85,24 @@ categoryOf(product: Product) {
   editAccount(){
     this.userService.editUser
   }
+
+
+
+  productosExamen = [
+    {
+      categoria:1,
+      nombre: "pizza"
+    },
+    {
+      categoria:1,
+      nombre: "pizza 2"
+    },
+    {
+      categoria:2,
+      nombre: "hamburguesa"
+    },
+
+  ]
+
+  categoriasExamen = [1,2]
 }
