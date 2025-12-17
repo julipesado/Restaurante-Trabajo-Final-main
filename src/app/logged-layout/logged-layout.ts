@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { UserService } from '../services/user-service';
 import { AuthService } from '../services/auth-service';
 import { User } from '../interfaces/interfaces/user';
@@ -24,22 +24,39 @@ export class LoggedLayout implements OnInit {
   categoriesService= inject (CategoriesService);
   me: User | undefined;
   error = false;
-  userId= this.userService.getUserById;
+  products: Product[] = []; 
+  categories: Category[] = []; 
 
-  ngOnInit(): void {
-    this.categoriesService.getCategoriesByRestaurant(this.authService.getUserId());
-    this.productService.getProductsMe();
-    const restaurantName = this.authService.getRestaurantName();
-    if (restaurantName === null)
+  async ngOnInit() {
+  try {
+    const userId = this.authService.getUserId();
+
+    if (userId) {
+      this.me = await this.userService.getUserById(userId);
+      console.log("Usuario cargado:", this.me);
+
+      this.products = await this.productService.getProductsMe();
+      
+      this.categories = await this.categoriesService.getCategoriesByRestaurant(userId);
+      
+    } else {
+      console.error("No hay usuario logueado o el token expiró");
       this.error = true;
-    else
-      this.userService.getUserByRestaurantName(restaurantName).then(user => {
-        this.me = user;
-      })
+      this.authService.logout(); 
+    }
+  } catch (error) {
+    console.error("Error cargando datos del panel:", error);
+    this.error = true;
   }
-  categoryOf(product: Product) {
-    return this.categoriesService.categories.find(c => c.id === product.categoryId)!;
-  }
+}
+// categoryOf(product: Product) {
+//    return this.categories.find(category => category.id === product.categoryId)!;
+// }
+  getProductsByCategory(categoryId: number): Product[] {
+  return this.products.filter(p => {
+    return p.categoryId == categoryId;
+  });
+}
   addCategory(){
     this.categoriesService.createCategory
   }

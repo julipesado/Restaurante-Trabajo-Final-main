@@ -24,9 +24,8 @@ export class AddProducts implements OnInit {
   product: Product | undefined;
   categoriesService = inject (CategoriesService)
   categories: Category[] = [];
+  errorBack = false;
   restaurantId : number | null = null; 
-
-
 
   async ngOnInit() {
   const id = this.authService.getUserId();
@@ -35,47 +34,53 @@ export class AddProducts implements OnInit {
     this.categories = await this.categoriesService.getCategoriesByRestaurant(this.restaurantId);
   }
     if (this.idProducto()) {
-      this.productoOriginal = await this.productService.getRestaurantProducts(this.idProducto()!) //* el ! dsp de la variable significa que esta revisado de que no es undefined 
+      this.productoOriginal = await this.productService.getProduct(this.idProducto()!);
       this.form()?.setValue({
         name: this.productoOriginal!.name,
-        id: this.productoOriginal!.id,
-        price: this.productoOriginal!.price,
         description: this.productoOriginal!.description,
-        categoryId: this.productoOriginal!.categoryId,
+        price: this.productoOriginal!.price,
+        featured: this.productoOriginal!.featured,
         recommendedFor: this.productoOriginal!.recommendedFor,
-        discount: this.productoOriginal!.discount,
-        hasHappyHour: this.productoOriginal!.hasHappyHour,
-      }) 
+        descuento: this.productoOriginal!.discount,
+        happyhour: this.productoOriginal!.hasHappyHour,
+        categoryId: this.productoOriginal!.categoryId,
+        
+
+      });
+    await this.categoriesService.getCategoriesByRestaurant(this.authService.getUserId());
     }
+
   }
   async handleFormSubmission(form: NgForm) {
-     const nuevoProducto: NewProduct = {
+    this.errorBack = false;
+
+    const nuevoProducto: NewProduct = {
       name: form.value.name,
-      description: form.value.descripcion,
-      price: parseInt(form.value.price),
-      featured: form.value.featured,
-      recommendedFor: parseInt(form.value.recommendedFor),
-      discount: parseInt(form.value.discount),
-      hasHappyHour: form.value.hasHappyHour,
-      categoryId: parseInt(form.value.categoryId),
-      restaurantId: this.authService.getUserId(),
+      description: form.value.description,
+      price: Number(form.value.price),
+      featured: !!form.value.featured,
+      discount: Number(form.value.discount ?? 0),
+      hasHappyHour: !!form.value.hasHappyHour,
+      categoryId: Number(form.value.categoryId),
+      restaurantId: this.authService.getUserId()!,
+      recommendedFor: form.value.recommendedFor
     };
     let res;
+
     this.isLoading = true;
+
     if (this.idProducto()) {
-      res = await this.productService.editProduct({
-        ...nuevoProducto,
-        id: this.idProducto()!
-      });
+      res = await this.productService.editProduct({...nuevoProducto, id: this.idProducto()!});
     } else {
       res = await this.productService.createProduct(nuevoProducto);
     }
 
     this.isLoading = false;
-    this.router.navigate(["/admin"])
-    }
+
+    if (!res) {
+      this.errorBack = true;
+      return;
+    };
+    this.router.navigate(['/admin']);
   }
-
-
-
-
+}

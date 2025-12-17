@@ -13,22 +13,21 @@ export class ProductsService implements OnInit {
   restaurantProducts: Product[] = [];
 
   async createProduct(nuevoProducto: NewProduct) {
-    const res = await fetch("https://w370351.ferozo.com/api/products",
-      {
+    const res = await fetch("https://w370351.ferozo.com/api/products",{
         method: "POST",
-        body: JSON.stringify(nuevoProducto),
         headers: {
           "Content-Type": "application/json", Authorization: "Bearer " + this.authService.token,
         },
+        body: JSON.stringify(nuevoProducto)
       })
     if (!res.ok) {
-      return
+      return undefined
     }
     const resJson: Product = await res.json()
     this.userProducts.push(resJson)
     return resJson
   }
-  async getProductsMe() {
+async getProductsMe() {
     const res = await fetch("https://w370351.ferozo.com/api/products/me",
       {
         headers: {
@@ -39,18 +38,25 @@ export class ProductsService implements OnInit {
     this.userProducts = await res.json();
     return this.userProducts;
   }
-  async getRestaurantProducts(restaurantId: number | string) {
-    const res = await fetch("https://w370351.ferozo.com/api/users/" + restaurantId + "/products",
-      {
-        headers: {
-          Authorization: "Bearer " + this.authService.token,
-        },
-      })
-    if (!res.ok) {
-      return
+async getRestaurantProducts(restaurantId: number | string) {
+  const url = "https://w370351.ferozo.com/api/users/" + restaurantId + "/products";
+  
+  const res = await fetch(url, {
+    method: 'GET', 
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem('token')
     }
-    return this.restaurantProducts = await res.json();
+  });
+
+  if (!res.ok) {
+    console.error("Error trayendo productos:", res.status);
+    return []; 
   }
+
+  const resJson = await res.json();
+  return resJson;
+}
 
   async getProduct(id: number) {
     const res = await fetch('https://w370351.ferozo.com/api/products/' + id);

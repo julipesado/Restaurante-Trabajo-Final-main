@@ -48,7 +48,7 @@ export const routes: Routes = [
         canActivate: [onlyLoggedUserGuard]
     },
     {
-        path: "product/:idProduct/edit",
+        path: "product/:idProducto/edit",
         component: AddProducts,
         canActivate: [onlyLoggedUserGuard]
     },
@@ -67,7 +67,7 @@ export const routes: Routes = [
         component: ProductPage
     },
     {
-        path: "edit-user",
+        path: "edit-user/:idUsuario",
         component: EditUserPage,
         canActivate: [onlyLoggedUserGuard]
     }

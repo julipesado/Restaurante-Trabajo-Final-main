@@ -15,6 +15,7 @@ export class ProductListItem {
   category = input.required<Category>()
   productService = inject(ProductsService)
   router = inject(Router)
+ 
 
   deleteProduct(){
     this.productService.deleteProduct(this.product().id)

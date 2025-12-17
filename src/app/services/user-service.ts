@@ -74,7 +74,7 @@ export class UserService {
     this.users.push(resJson);
     return resJson
   }
- async editUser(userEditado: UpdateUser) {
+ async editUser(userEditado: User) {
     const res = await fetch("https://w370351.ferozo.com/api/users/" + userEditado.id, {
       method: 'PUT',
       headers: {
@@ -83,8 +83,10 @@ export class UserService {
       },
       body: JSON.stringify(userEditado)
     });
-    if (!res.ok) return;
-    this.user = this.users.map(user => {
+    if (!res.ok) {
+      return; 
+    }
+    this.users = this.users.map(user => {
       if (user.id === userEditado.id) {
         return userEditado;
       };
